@@ -1,0 +1,97 @@
+---
+import Icon from './Icon.astro'
+import { ui } from '../i18n'
+
+const { t } = ui(Astro.currentLocale)
+const items = t('promises.items', { returnObjects: true }) as { title: string; text: string }[]
+
+const icons = ['gem', 'scissors', 'messageCircle', 'medal', 'calendar'] as const
+const tints = ['bg-rose-100', 'bg-ivory-200/80', 'bg-rose-100', 'bg-ivory-200/80', 'bg-rose-800']
+---
+
+<section id="por-que" class="bg-ivory-50 py-24 sm:py-32" aria-labelledby="promises-title">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow flex items-center gap-3 text-rose-700">
+        <span class="h-px w-10 bg-rose-300" aria-hidden="true"></span>
+        {t('promises.eyebrow')}
+      </p>
+      <h2 id="promises-title" class="mt-5 font-serif text-4xl leading-tight text-ink-900 sm:text-5xl">
+        {t('promises.title')}
+      </h2>
+    </div>
+
+    <div class="mt-16 grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-4">
+      {
+        items.map((item, i) => {
+          const isWide = i === items.length - 1
+          // Wrapper handles the scroll-reveal stagger; the card inside keeps its
+          // own hover transitions delay-free and smooth.
+          const colSpan = isWide ? 'col-span-2 lg:col-span-4' : ''
+          return (
+            <div
+              class={`h-full ${colSpan}`}
+              data-reveal
+              style={`transition-delay: ${i * 90}ms`}
+            >
+              {isWide ? (
+                <article
+                  class="group relative h-full overflow-hidden rounded-4xl border border-rose-200/70 bg-linear-to-br from-rose-100/90 to-ivory-100/90 p-8 shadow-[0_16px_40px_-24px_rgba(85,52,52,0.3)] transition-all duration-700 ease-out hover:-translate-y-1 hover:shadow-[0_28px_56px_-28px_rgba(85,52,52,0.35)] md:p-10"
+                >
+                  <span
+                    class="pointer-events-none absolute -right-10 -top-10 h-36 w-36 rounded-full bg-rose-200/50 transition-transform duration-1000 ease-out group-hover:scale-110"
+                    aria-hidden="true"
+                  ></span>
+                  <div class="relative flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+                    <div class="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+                      <span
+                        class={`grid h-16 w-16 shrink-0 place-items-center rounded-2xl ${tints[i]} text-ivory-50 shadow-lg shadow-rose-800/20`}
+                      >
+                        <Icon name={icons[i]} size={28} />
+                      </span>
+                      <div class="max-w-md">
+                        <h3 class="font-serif text-3xl leading-tight text-ink-900">{item.title}</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-ink-500">{item.text}</p>
+                      </div>
+                    </div>
+                    <a
+                      href="#contacto"
+                      class="group/link inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-rose-800 px-6 py-3.5 text-xs font-semibold tracking-[0.18em] uppercase text-rose-800 transition-colors duration-300 hover:bg-rose-800 hover:text-ivory-50 md:self-auto"
+                    >
+                      {t('nav.cta')}
+                      <Icon
+                        name="arrowRight"
+                        size={14}
+                        class="transition-transform duration-300 group-hover/link:translate-x-1"
+                      />
+                    </a>
+                  </div>
+                </article>
+              ) : (
+                <article
+                  class="group relative h-full overflow-hidden rounded-[1.75rem] border border-rose-200/60 bg-white/80 p-5 shadow-[0_12px_32px_-22px_rgba(85,52,52,0.25)] transition-all duration-700 ease-out hover:-translate-y-1 hover:border-rose-300/80 hover:shadow-[0_24px_48px_-26px_rgba(85,52,52,0.35)] sm:p-6 lg:p-8"
+                >
+                  <span
+                    class="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-rose-100/90 transition-transform duration-1000 ease-out group-hover:scale-125"
+                    aria-hidden="true"
+                  ></span>
+                  <div class="relative">
+                    <span
+                      class={`grid h-11 w-11 place-items-center rounded-2xl ${tints[i]} text-rose-800 transition-colors duration-500 group-hover:bg-rose-800 group-hover:text-ivory-50 sm:h-12 sm:w-12`}
+                    >
+                      <Icon name={icons[i]} size={21} />
+                    </span>
+                    <h3 class="relative mt-6 font-serif text-[1.3rem] leading-snug text-ink-900 sm:text-2xl lg:text-[1.6rem]">
+                      {item.title}
+                    </h3>
+                    <p class="relative mt-3 text-sm leading-relaxed text-ink-500">{item.text}</p>
+                  </div>
+                </article>
+              )}
+            </div>
+          )
+        })
+      }
+    </div>
+  </div>
+</section>

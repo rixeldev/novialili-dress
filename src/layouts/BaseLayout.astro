@@ -1,0 +1,124 @@
+---
+import '../styles/global.css'
+import { ui } from '../i18n'
+import { SITE } from '../lib/site'
+import AnnouncementBar from '../components/AnnouncementBar.astro'
+import SiteHeader from '../components/SiteHeader.astro'
+import SiteFooter from '../components/SiteFooter.astro'
+import BackToTop from '../components/BackToTop.astro'
+import Reveal from '../components/Reveal.astro'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const { title, description } = Astro.props
+const { locale, lang, t } = ui(Astro.currentLocale)
+
+const parsedTitle = title ?? t('meta.title')
+const parsedDescription = description ?? t('meta.description')
+
+const siteOrigin = Astro.site?.origin ?? 'https://www.novialilidress.com'
+const pathname = Astro.url.pathname.endsWith('/')
+  ? Astro.url.pathname
+  : `${Astro.url.pathname}/`
+const canonical = `${siteOrigin}${pathname}`
+const esUrl = `${siteOrigin}/`
+const enUrl = `${siteOrigin}/en/`
+const ogImage = `${siteOrigin}/images/og.jpg`
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BridalShop',
+  name: SITE.name,
+  alternateName: 'Novialilidress',
+  url: canonical,
+  image: ogImage,
+  description: parsedDescription,
+  telephone: '+1-829-566-0664',
+  email: SITE.email,
+  priceRange: '$$',
+  areaServed: locale === 'es' ? 'La Vega, República Dominicana' : 'La Vega, Dominican Republic',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Próximo al parque del estudiante, callejón de Los Mota',
+    addressLocality: 'La Vega',
+    postalCode: '41000',
+    addressCountry: 'DO',
+  },
+  geo: { '@type': 'GeoCoordinates', latitude: 19.2213118, longitude: -70.525595 },
+  hasMap: 'https://www.google.com/maps/place/Novialilidress/@19.2208495,-70.5258838,17z/',
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '08:00',
+      closes: '18:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Saturday'],
+      opens: '08:00',
+      closes: '15:00',
+    },
+  ],
+  sameAs: [SITE.instagram, SITE.pinterest, SITE.youtube, SITE.tiktok],
+}
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#fdfbf8" />
+    <title>{parsedTitle}</title>
+    <meta name="description" content={parsedDescription} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="es" href={esUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={esUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content={locale === 'es' ? 'es_ES' : 'en_US'} />
+    <meta property="og:locale:alternate" content={locale === 'es' ? 'en_US' : 'es_ES'} />
+    <meta property="og:title" content={parsedTitle} />
+    <meta property="og:description" content={parsedDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={SITE.name} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={parsedTitle} />
+    <meta name="twitter:description" content={parsedDescription} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body class="bg-ivory-50 font-sans text-ink-700 antialiased">
+    <a class="skip-link" href="#main">{t('a11y.skip')}</a>
+    <div class="fixed inset-x-0 top-0 z-50">
+      <AnnouncementBar />
+      <SiteHeader />
+    </div>
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+    <BackToTop />
+    <Reveal />
+  </body>
+</html>

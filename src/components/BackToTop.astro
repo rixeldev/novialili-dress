@@ -1,0 +1,30 @@
+---
+import Icon from './Icon.astro'
+import { ui } from '../i18n'
+
+const { t } = ui(Astro.currentLocale)
+---
+
+<button
+  id="back-to-top"
+  type="button"
+  aria-label={t('a11y.backToTop')}
+  class="back-to-top cursor-pointer fixed right-5 bottom-5 z-40 grid h-11 w-11 place-items-center rounded-full border border-rose-200/70 bg-ivory-50/95 text-rose-800 shadow-[0_14px_34px_-18px_rgba(85,52,52,0.45)] hover:border-rose-700 hover:bg-rose-800 hover:text-ivory-50"
+>
+  <Icon name="arrowRight" size={18} class="-rotate-90" />
+</button>
+
+<script>
+  const btn = document.getElementById('back-to-top')
+  if (btn) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const showAt = 560
+    const update = () => btn.classList.toggle('is-visible', window.scrollY > showAt)
+    window.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update, { passive: true })
+    update()
+    btn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' })
+    })
+  }
+</script>

@@ -1,0 +1,20 @@
+---
+import Icon from './Icon.astro'
+import { ui } from '../i18n'
+
+const { t } = ui(Astro.currentLocale)
+const isEs = Astro.currentLocale !== 'en'
+const target = isEs ? 'en' : 'es'
+---
+
+<a
+  href={isEs ? '/en/' : '/'}
+  lang={target}
+  hreflang={target}
+  aria-label={t('a11y.switchToLabel')}
+  class="group inline-flex items-center gap-1.5 rounded-full border border-current px-3 py-1.5 text-[0.7rem] font-semibold tracking-[0.18em] uppercase transition-all duration-300 hover:bg-rose-700 hover:border-rose-700 hover:text-ivory-50"
+>
+  <Icon name="globe" size={13} class="transition-transform duration-300 group-hover:rotate-12" />
+  <span aria-hidden="true">{target}</span>
+  <span class="sr-only">{t('a11y.switchTo')}</span>
+</a>

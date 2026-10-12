@@ -1,0 +1,89 @@
+---
+import Icon from './Icon.astro'
+import { ui } from '../i18n'
+import { SITE } from '../lib/site'
+
+const { t } = ui(Astro.currentLocale)
+---
+
+<section id="inicio" class="relative isolate flex min-h-svh items-end overflow-hidden bg-ink-900">
+  <img
+    src="/images/hero.jpg"
+    alt=""
+    class="absolute inset-0 h-full w-full object-cover object-center"
+    width="1600"
+    height="1066"
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
+  <!-- Base dim + stronger gradient + top scrim so header & hero copy always read -->
+  <div class="absolute inset-0 bg-ink-900/30" aria-hidden="true"></div>
+  <div
+    class="absolute inset-0 bg-linear-to-t from-ink-900/90 via-ink-900/40 to-ink-900/45"
+    aria-hidden="true"
+  ></div>
+  <div
+    class="absolute inset-x-0 top-0 h-44 bg-linear-to-b from-ink-900/75 via-ink-900/40 to-transparent"
+    aria-hidden="true"
+  ></div>
+
+  <div class="relative mx-auto w-full max-w-7xl px-6 pb-24 pt-44 sm:pb-28 lg:pb-32">
+    <p class="eyebrow text-shadow-hero animate-fade-in flex flex-wrap items-center gap-3 text-rose-100">
+      <span class="h-px w-10 bg-rose-300" aria-hidden="true"></span>
+      {t('hero.eyebrow')}
+      <Icon name="sparkle" size={12} class="text-rose-300" />
+    </p>
+
+    <h1
+      class="animate-slide-in-bottom animate-delay-150 text-shadow-hero mt-8 max-w-3xl font-serif text-[clamp(3rem,8vw,5.75rem)] leading-[1.02] text-ivory-50"
+    >
+      {t('hero.titleStart')} <em class="italic text-rose-200">{t('hero.titleItalic')}</em>
+    </h1>
+
+    <!-- Hand-drawn flourish that draws itself under the headline -->
+    <svg class="swash mt-4 h-3 w-44 text-rose-300/90 sm:w-60" viewBox="0 0 220 12" fill="none" aria-hidden="true">
+      <path d="M2 9.5C62 2.5 150 2.5 218 7.5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+    </svg>
+
+    <p class="text-shadow-hero animate-fade-in animate-delay-300 mt-7 max-w-md text-base leading-relaxed text-ivory-100/90 sm:text-lg">
+      {t('hero.lede')}
+    </p>
+
+    <div class="animate-fade-in animate-delay-400 mt-11 flex flex-wrap items-center gap-4">
+      <a
+        href={SITE.phoneHref}
+        class="inline-flex items-center justify-center gap-2 rounded-full bg-ivory-50 px-8 py-4 text-xs font-semibold tracking-[0.18em] uppercase text-ink-900 shadow-xl shadow-ink-900/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-ivory-100"
+      >
+        <Icon name="phone" size={15} />
+        {t('hero.ctaPrimary')}
+      </a>
+      <a
+        href="#coleccion"
+        class="group inline-flex items-center justify-center gap-2 rounded-full border border-ivory-50/45 px-8 py-4 text-xs font-semibold tracking-[0.18em] uppercase text-ivory-50 transition-all duration-300 hover:-translate-y-0.5 hover:border-ivory-50/80 hover:bg-ivory-50/10"
+      >
+        {t('hero.ctaSecondary')}
+        <Icon name="arrowRight" size={15} class="transition-transform duration-300 group-hover:translate-x-1" />
+      </a>
+    </div>
+  </div>
+
+  <!-- Vertical brand echo (desktop only) -->
+  <p
+    class="absolute right-10 top-1/2 hidden -translate-y-1/2 text-[0.6rem] font-medium tracking-[0.42em] uppercase text-ivory-100/40 lg:block [writing-mode:vertical-rl]"
+    aria-hidden="true"
+  >
+    Novialili Dress · Atelier de novias
+  </p>
+
+  <a
+    href="#por-que"
+    class="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-3 text-ivory-100/80 transition-colors hover:text-ivory-50 sm:flex"
+    aria-label={t('hero.scroll')}
+  >
+    <span class="text-[0.62rem] font-medium tracking-[0.32em] uppercase">{t('hero.scroll')}</span>
+    <span class="bounce-down inline-flex">
+      <Icon name="arrowRight" size={16} class="rotate-90" />
+    </span>
+  </a>
+</section>

@@ -1,0 +1,129 @@
+---
+import Icon from './Icon.astro'
+import { ui } from '../i18n'
+import { CATALOG_URLS } from '../lib/site'
+
+const { t } = ui(Astro.currentLocale)
+const items = t('collection.items', { returnObjects: true }) as {
+  label: string
+  tag: string
+  alt: string
+}[]
+
+const urls = [
+  CATALOG_URLS.novias,
+  CATALOG_URLS.quinceaneras,
+  CATALOG_URLS.caballeros,
+  CATALOG_URLS.embarazadas,
+  CATALOG_URLS.largas,
+  CATALOG_URLS.comunion,
+]
+
+const images = [
+  { src: '/images/cat-novias.jpg', w: 1920, h: 2688 },
+  { src: '/images/cat-quinceaneras.jpg', w: 1165, h: 1138 },
+  { src: '/images/cat-caballeros.jpg', w: 1920, h: 1280 },
+  { src: '/images/cat-embarazadas.jpg', w: 684, h: 1024 },
+  { src: '/images/cat-largas.jpg', w: 1920, h: 2688 },
+  { src: '/images/cat-comunion.png', w: 1024, h: 1536 },
+]
+
+const cols = [
+  'lg:col-span-5',
+  'lg:col-span-4 lg:mt-20',
+  'lg:col-span-3 lg:mt-40',
+  'lg:col-span-4',
+  'lg:col-span-4 lg:mt-20',
+  'lg:col-span-4',
+]
+
+const aspects = [
+  'aspect-[3/4]',
+  'aspect-[3/4]',
+  'aspect-[3/4]',
+  'aspect-[3/4] lg:aspect-[4/5]',
+  'aspect-[3/4]',
+  'aspect-[3/4] lg:aspect-[4/5]',
+]
+---
+
+<section id="coleccion" class="bg-ivory-100 py-24 sm:py-32" aria-labelledby="collection-title">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow flex items-center gap-3 text-rose-700">
+        <span class="h-px w-10 bg-rose-300" aria-hidden="true"></span>
+        {t('collection.eyebrow')}
+      </p>
+      <h2 id="collection-title" class="mt-5 font-serif text-4xl leading-tight text-ink-900 sm:text-5xl">
+        {t('collection.title')}
+      </h2>
+      <p class="mt-6 max-w-xl leading-relaxed text-ink-700/90">{t('collection.intro')}</p>
+    </div>
+
+    <div
+      class="mt-16 grid grid-cols-2 gap-x-4 gap-y-12 lg:grid-cols-12 lg:items-start lg:gap-x-7 lg:gap-y-16"
+    >
+      {
+        items.map((item, i) => (
+          <a
+            href={urls[i]}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${item.label} — ${t('collection.open')}`}
+            class={`group block ${cols[i]}`}
+            data-reveal
+            style={`transition-delay: ${(i % 3) * 110}ms`}
+          >
+            <figure>
+              <div class={`relative overflow-hidden bg-ivory-200 ${aspects[i]}`}>
+                <img
+                  src={images[i].src}
+                  alt={item.alt}
+                  width={images[i].w}
+                  height={images[i].h}
+                  loading="lazy"
+                  decoding="async"
+                  class="h-full w-full object-cover transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105"
+                />
+                <span class="absolute left-3 top-3 rounded-full bg-ivory-50/90 px-3.5 py-1.5 text-[0.62rem] font-semibold tracking-[0.2em] uppercase text-ink-700 backdrop-blur-xs">
+                  {item.tag}
+                </span>
+                <span
+                  class="absolute bottom-3 right-3 grid h-10 w-10 -translate-y-1 place-items-center rounded-full bg-ivory-50 text-ink-900 opacity-0 shadow-lg transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100"
+                  aria-hidden="true"
+                >
+                  <Icon name="arrowUpRight" size={17} />
+                </span>
+              </div>
+              <figcaption class="mt-5 flex items-end justify-between gap-4">
+                <div>
+                  <h3 class="font-serif text-2xl leading-none text-ink-900">{item.label}</h3>
+                  <p class="mt-2 text-[0.65rem] font-medium tracking-[0.24em] uppercase text-ink-500">
+                    {item.tag}
+                  </p>
+                </div>
+                <Icon
+                  name="arrowUpRight"
+                  size={18}
+                  class="shrink-0 text-rose-700 transition-transform duration-300 group-hover:-translate-y-1 group-hover:translate-x-1"
+                />
+              </figcaption>
+            </figure>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="mt-20 text-center" data-reveal>
+      <a
+        href={CATALOG_URLS.viewAll}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="group inline-flex items-center gap-2 border-b border-rose-700 pb-1.5 text-xs font-semibold tracking-[0.2em] uppercase text-rose-700 transition-colors hover:border-rose-800 hover:text-rose-800"
+      >
+        {t('collection.viewAll')}
+        <Icon name="arrowRight" size={15} class="transition-transform duration-300 group-hover:translate-x-1" />
+      </a>
+    </div>
+  </div>
+</section>

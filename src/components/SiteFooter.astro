@@ -1,0 +1,141 @@
+---
+import Icon from './Icon.astro'
+import LanguageSwitcher from './LanguageSwitcher.astro'
+import { ui } from '../i18n'
+import { SITE } from '../lib/site'
+
+const { t } = ui(Astro.currentLocale)
+
+const year = new Date().getFullYear()
+
+const navLinks = [
+  { href: '#inicio', label: t('nav.inicio') },
+  { href: '#historia', label: t('nav.historia') },
+  { href: '#coleccion', label: t('nav.coleccion') },
+  { href: '#testimonios', label: t('nav.testimonios') },
+  { href: '#contacto', label: t('nav.contacto') },
+]
+
+const socials = [
+  { label: 'Instagram', href: SITE.instagram, icon: 'instagram' },
+  { label: 'WhatsApp', href: SITE.whatsappHref, icon: 'whatsapp' },
+  { label: 'YouTube', href: SITE.youtube, icon: 'youtube' },
+  { label: 'Pinterest', href: SITE.pinterest, icon: 'pinterest' },
+  { label: 'TikTok', href: SITE.tiktok, icon: 'tiktok' },
+] as const
+
+const hours = t('footer.hours', { returnObjects: true }) as { day: string; time: string }[]
+---
+
+<footer class="relative overflow-hidden bg-ink-900 pb-10 pt-20 text-ivory-100">
+  <div class="relative z-10 mx-auto max-w-7xl px-6">
+    <div class="grid gap-14 md:grid-cols-2 lg:grid-cols-12 lg:gap-10">
+      <div class="lg:col-span-4">
+        <p class="font-serif text-3xl leading-none text-ivory-50">
+          Novialili <em class="italic text-rose-300">Dress</em>
+        </p>
+        <p class="mt-5 max-w-xs text-sm leading-relaxed text-ivory-100/70">{t('footer.tagline')}</p>
+        <ul class="mt-8 flex flex-wrap gap-3">
+          {
+            socials.map((social) => (
+              <li>
+                <a
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.label}
+                  class="grid h-11 w-11 place-items-center rounded-full border border-ivory-50/20 text-ivory-100/90 transition-all duration-300 hover:-translate-y-0.5 hover:border-rose-700 hover:bg-rose-800"
+                >
+                  <Icon name={social.icon} size={17} />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="mt-8 flex flex-wrap items-center gap-4 text-ink-900">
+          <LanguageSwitcher />
+        </div>
+      </div>
+
+      <nav class="lg:col-span-2" aria-label={t('a11y.menuLabel')}>
+        <h2 class="eyebrow text-rose-300">{t('footer.navTitle')}</h2>
+        <ul class="mt-6 space-y-3.5">
+          {
+            navLinks.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-sm text-ivory-100/80 transition-colors hover:text-rose-200"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="lg:col-span-3">
+        <h2 class="eyebrow text-rose-300">{t('footer.contactTitle')}</h2>
+        <ul class="mt-6 space-y-4 text-sm text-ivory-100/80">
+          <li class="flex gap-3">
+            <Icon name="pin" size={17} class="mt-0.5 shrink-0 text-rose-300" />
+            <a
+              href="https://maps.app.goo.gl/Vbw91xRrASMkYZrR8"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="transition-colors hover:text-rose-200"
+            >
+              {t('footer.address')}
+            </a>
+          </li>
+          <li class="flex gap-3">
+            <Icon name="phone" size={17} class="mt-0.5 shrink-0 text-rose-300" />
+            <a href={SITE.phoneHref} class="transition-colors hover:text-rose-200">
+              {SITE.phoneDisplay}
+            </a>
+          </li>
+          <li class="flex gap-3">
+            <Icon name="mail" size={17} class="mt-0.5 shrink-0 text-rose-300" />
+            <a href={`mailto:${SITE.email}`} class="transition-colors hover:text-rose-200">
+              {SITE.email}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="lg:col-span-3">
+        <h2 class="eyebrow text-rose-300">{t('footer.hoursTitle')}</h2>
+        <ul class="mt-6 divide-y divide-ivory-50/10 text-sm">
+          {
+            hours.map((row) => (
+              <li class="flex items-baseline justify-between gap-4 py-2.5 text-ivory-100/80">
+                <span>{row.day}</span>
+                <span class="font-serif text-base italic text-ivory-50">{row.time}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-6 flex justify-center" aria-hidden="true">
+      <img
+        src="/images/logo-name.webp"
+        alt=""
+        loading="lazy"
+        class="w-full sm:max-w-[50%] max-w-[80%] select-none opacity-50 pointer-events-none"
+        style="filter: brightness(0) invert(1); -webkit-mask-image: linear-gradient(to top, transparent 8%, #000 30%); mask-image: linear-gradient(to top, transparent 25%, #000 75%)"
+      />
+    </div>
+
+    <div
+      class="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-ivory-50/15 pt-7 text-xs text-ivory-100/60"
+    >
+      <p>
+        © {year} Novialili Dress · {t('footer.rights')}
+      </p>
+      <p class="tracking-[0.22em] uppercase">La Vega · República Dominicana</p>
+    </div>
+  </div>
+</footer>

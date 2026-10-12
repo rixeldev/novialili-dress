@@ -1,0 +1,134 @@
+---
+import Icon from './Icon.astro'
+import LanguageSwitcher from './LanguageSwitcher.astro'
+import { ui } from '../i18n'
+import { SITE } from '../lib/site'
+
+const { t } = ui(Astro.currentLocale)
+
+const links = [
+  { href: '#inicio', label: t('nav.inicio') },
+  { href: '#coleccion', label: t('nav.coleccion') },
+  { href: '#historia', label: t('nav.historia') },
+  { href: '#testimonios', label: t('nav.testimonios') },
+  { href: '#contacto', label: t('nav.contacto') },
+]
+---
+
+<header id="site-header" class="site-header">
+  <div class="mx-auto flex h-17 max-w-7xl items-center justify-between gap-6 px-6">
+    <a href="#" class="site-brand font-serif text-[1.55rem] leading-none tracking-wide">
+      Novialili <em class="italic">Dress</em>
+    </a>
+
+    <nav class="hidden items-center gap-8 lg:flex" aria-label={t('a11y.menuLabel')}>
+      {
+        links.map((link) => (
+          <a href={link.href} class="nav-link text-[0.8rem] font-medium tracking-[0.14em] uppercase">
+            {link.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <div class="hidden lg:block">
+        <LanguageSwitcher />
+      </div>
+      <a
+        href={SITE.phoneHref}
+        class="header-cta hidden items-center gap-2 rounded-full px-5 py-2.5 text-[0.72rem] font-semibold tracking-[0.16em] uppercase transition-all duration-300 hover:-translate-y-0.5 md:inline-flex"
+      >
+        <Icon name="phone" size={14} />
+        {t('nav.cta')}
+      </a>
+      <button
+        id="menu-toggle"
+        data-open-label={t('a11y.openMenu')}
+        data-close-label={t('a11y.closeMenu')}
+        class="grid h-11 w-11 place-items-center rounded-full border border-current/40 transition-colors hover:border-rose-300 lg:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label={t('a11y.openMenu')}
+      >
+        <Icon name="menu" size={22} class="icon-open" />
+        <Icon name="close" size={22} class="icon-close hidden" />
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="hidden border-t border-ink-900/5 bg-ivory-50 shadow-[0_24px_40px_-24px_rgba(29,22,22,0.35)] lg:hidden">
+    <nav class="px-6 py-6" aria-label={t('a11y.menuLabel')}>
+      <ul class="flex flex-col gap-1">
+        {
+          links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="block rounded-lg px-3 py-3 font-serif text-2xl text-ink-900 transition-colors hover:bg-rose-100"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-6 flex items-center justify-between gap-4 border-t border-ink-900/10 pt-6 text-ink-900">
+        <LanguageSwitcher />
+        <a
+          href={SITE.phoneHref}
+          class="inline-flex items-center gap-2 rounded-full bg-rose-800 px-5 py-3 text-[0.72rem] font-semibold tracking-[0.16em] uppercase text-ivory-50 transition-colors hover:bg-rose-900"
+        >
+          <Icon name="phone" size={14} />
+          {t('nav.cta')}
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('site-header')
+
+  if (header) {
+    const updateHeader = () => header.classList.toggle('is-scrolled', window.scrollY > 24)
+    updateHeader()
+    window.addEventListener('scroll', updateHeader, { passive: true })
+  }
+
+  const toggle = document.getElementById('menu-toggle')
+  const panel = document.getElementById('mobile-menu')
+
+  if (toggle && panel) {
+    const openIcon = toggle.querySelector('.icon-open')
+    const closeIcon = toggle.querySelector('.icon-close')
+    const openLabel = toggle.dataset.openLabel ?? 'Open menu'
+    const closeLabel = toggle.dataset.closeLabel ?? 'Close menu'
+
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open))
+      toggle.setAttribute('aria-label', open ? closeLabel : openLabel)
+      panel.classList.toggle('hidden', !open)
+      openIcon?.classList.toggle('hidden', open)
+      closeIcon?.classList.toggle('hidden', !open)
+      if (open) {
+        window.setTimeout(() => panel.querySelector('a')?.focus(), 0)
+      } else {
+        toggle.focus()
+      }
+    }
+
+    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'))
+
+    panel.querySelectorAll('a').forEach((link) =>
+      link.addEventListener('click', () => setOpen(false)),
+    )
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        event.preventDefault()
+        setOpen(false)
+      }
+    })
+  }
+</script>
