@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "title": "Alquiler de Vestidos en La Vega | Novialili Dress",
+    "description": "Atelier de alquiler de vestidos de novia, quinceañera y ocasiones especiales en La Vega, República Dominicana. Trajes para caballeros, accesorios, ajustes y asesoría personalizada."
+  },
+  "announcement": ["Diseños exclusivos", "Ajustes personalizados", "Atención por cita"],
+  "nav": {
+    "inicio": "Inicio",
+    "historia": "Nuestra historia",
+    "coleccion": "Catálogos",
+    "testimonios": "Testimonios",
+    "contacto": "Contacto",
+    "cta": "Agenda tu cita"
+  },
+  "hero": {
+    "eyebrow": "Atelier de novias · La Vega, República Dominicana",
+    "titleStart": "Distinción para",
+    "titleItalic": "tu gran día",
+    "lede": "Vestidos de novia, quinceañeras y ocasiones especiales, con accesorios y ajustes a tu medida.",
+    "ctaPrimary": "Agenda tu cita",
+    "ctaSecondary": "Ver la colección",
+    "scroll": "Descubre más"
+  },
+  "promises": {
+    "eyebrow": "Por qué elegirnos",
+    "title": "¿Por qué elegir Novialili Dress?",
+    "items": [
+      { "title": "Diseños exclusivos", "text": "Piezas únicas seleccionadas para que brilles." },
+      { "title": "Ajustes personalizados", "text": "Tu vestido, ajustado a tu medida a la perfección." },
+      { "title": "Asesoría profesional", "text": "Te acompañamos en cada detalle de tu look." },
+      { "title": "Accesorios incluidos", "text": "Complementos para completar tu outfit." },
+      { "title": "Atención privada por cita", "text": "Una experiencia dedicada por completo a ti." }
+    ]
+  },
+  "collection": {
+    "eyebrow": "Nuestros catálogos",
+    "title": "Colecciones para cada ocasión",
+    "intro": "Vestidos de novia, quinceañera, ocasiones especiales, embarazadas y trajes formales para caballeros. Explora cada colección en nuestro catálogo en línea.",
+    "open": "Abrir catálogo",
+    "viewAll": "Ver todos los catálogos",
+    "items": [
+      {
+        "label": "Novias",
+        "tag": "Bodas",
+        "alt": "Vestido de novia de la colección Novialili Dress"
+      },
+      {
+        "label": "Quinceañeras",
+        "tag": "Celebraciones",
+        "alt": "Vestido de quinceañera de la colección Novialili Dress"
+      },
+      {
+        "label": "Caballeros",
+        "tag": "Trajes formales",
+        "alt": "Traje formal para caballero de la colección Novialili Dress"
+      },
+      {
+        "label": "Embarazadas",
+        "tag": "Maternidad",
+        "alt": "Vestido para futuras mamás de la colección Novialili Dress"
+      },
+      {
+        "label": "Ocasiones",
+        "tag": "Vestidos largos",
+        "alt": "Vestido largo de ocasión de la colección Novialili Dress"
+      },
+      {
+        "label": "Primera comunión",
+        "tag": "Infantil",
+        "alt": "Vestido de primera comunión de la colección Novialili Dress"
+      }
+    ]
+  },
+  "story": {
+    "eyebrow": "Nuestra historia",
+    "title": "Un atelier con alma",
+    "intro": "Somos una empresa dedicada al alquiler de vestidos y trajes para todo tipo de ocasión, ofreciendo un combo de complementos y asesoría de imagen para novias, novios, damas, madrina, niños, niñas, quinceañeras, invitados, bautizos y vestimenta formal.",
+    "themes": [
+      {
+        "title": "Qué sentimos",
+        "text": "Nos sentimos emocionadas de poder ofrecerles nuevos estilos elegantes y únicos. Piezas hechas a la medida, con una gran cantidad de detalles, patronaje complejo y materiales de la más alta haute couture."
+      },
+      {
+        "title": "Qué queremos",
+        "text": "Queremos que brille la diosa que existe en cada mujer. Que más que divina te sientas espectacular y que, con nuestro servicio, podamos construir un lazo de amistad."
+      },
+      {
+        "title": "Quiénes somos",
+        "text": "Un equipo apasionado por la moda de ocasión, dedicado a acompañarte en el día más importante de tu vida con atención cercana, honesta y personalizada."
+      }
+    ],
+    "founder": "Carolina Isabel Mota Bueno",
+    "founderRole": "Fundadora · Novialili Dress",
+    "place": "La Vega, República Dominicana",
+    "imageAlt": "Novia con vestido elegante en el atelier Novialili Dress de La Vega",
+    "videoEyebrow": "El atelier contado por su fundadora"
+  },
+  "testimonials": {
+    "eyebrow": "Testimonios",
+    "title": "Lo que dicen nuestras clientas",
+    "rating": "4.9/5",
+    "ratingNote": "7 valoraciones en nuestro sitio",
+    "reviewsCta": "Ver reseñas en Google",
+    "items": [
+      {
+        "text": "Excelente servicio y atención al cliente. Todo el personal fue muy amable y profesional, asegurándose de que encontrara justo lo que necesitaba. Los trajes son de gran calidad y los precios bastante accesibles. Sin duda, es mi lugar de confianza para ocasiones especiales.",
+        "author": "Wilton Tavarez"
+      },
+      {
+        "text": "Un personal muy eficiente, ofrecen un excelente servicio y buscan el mejor detalle para tu día especial. Me encanta Novialili Dress para todas mis ocasiones especiales.",
+        "author": "Jurissa Mota"
+      },
+      {
+        "text": "No tengo palabras para describir el excelente servicio que recibí de esta empresa. Su equipo hizo todo lo posible para satisfacer nuestras necesidades y superó nuestras expectativas.",
+        "author": "Oliver Thomas"
+      }
+    ]
+  },
+  "cta": {
+    "titleStart": "Encuentra el look perfecto para tu",
+    "titleItalic": "ocasión especial",
+    "text": "Atención privada y personalizada por cita. Llámanos o escríbenos por WhatsApp y agenda tu visita al atelier.",
+    "primary": "Llámanos · 829-566-0664",
+    "secondary": "Escríbenos por WhatsApp",
+    "note": "La Vega, República Dominicana · Lun a Vie 8:00–18:00 · Sáb 8:00–15:00"
+  },
+  "footer": {
+    "tagline": "Atelier de alquiler de vestidos y trajes para los momentos más importantes de tu vida. La Vega, República Dominicana.",
+    "navTitle": "Explora",
+    "contactTitle": "Contacto",
+    "hoursTitle": "Horario",
+    "address": "Próximo al parque del estudiante, callejón de Los Mota, La Vega 41000",
+    "hours": [
+      { "day": "Lunes a viernes", "time": "8:00 – 18:00" },
+      { "day": "Sábado", "time": "8:00 – 15:00" },
+      { "day": "Domingo", "time": "Cerrado" }
+    ],
+    "followTitle": "Síguenos",
+    "rights": "Todos los derechos reservados."
+  },
+  "a11y": {
+    "skip": "Saltar al contenido",
+    "menuLabel": "Navegación principal",
+    "openMenu": "Abrir menú de navegación",
+    "closeMenu": "Cerrar menú de navegación",
+    "switchTo": "Switch to English",
+    "switchToLabel": "Cambiar idioma a inglés",
+    "backToTop": "Volver arriba"
+  }
+}

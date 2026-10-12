@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "title": "Dress Rental in La Vega | Novialili Dress",
+    "description": "Bridal and occasion dress rental atelier in La Vega, Dominican Republic. Formalwear for men, accessories, alterations and personalised styling."
+  },
+  "announcement": ["Exclusive designs", "Custom alterations", "By appointment"],
+  "nav": {
+    "inicio": "Home",
+    "historia": "Our story",
+    "coleccion": "Catalog",
+    "testimonios": "Testimonials",
+    "contacto": "Contact",
+    "cta": "Book an appointment"
+  },
+  "hero": {
+    "eyebrow": "Bridal atelier · La Vega, Dominican Republic",
+    "titleStart": "Distinction for",
+    "titleItalic": "your big day",
+    "lede": "Dresses for brides, quinceañeras and special occasions, with accessories and alterations.",
+    "ctaPrimary": "Book an appointment",
+    "ctaSecondary": "View the collection",
+    "scroll": "Discover more"
+  },
+  "promises": {
+    "eyebrow": "Why choose us",
+    "title": "Why choose Novialili Dress?",
+    "items": [
+      { "title": "Exclusive designs", "text": "Unique pieces selected just for you." },
+      { "title": "Custom alterations", "text": "Your dress, adjusted perfectly to your measurements." },
+      { "title": "Professional styling", "text": "We walk you through every detail of your look." },
+      { "title": "Accessories included", "text": "Complements to complete your outfit." },
+      { "title": "Private, by-appointment care", "text": "An experience devoted entirely to you." }
+    ]
+  },
+  "collection": {
+    "eyebrow": "Our catalogs",
+    "title": "Collections for every occasion",
+    "intro": "Bridal, quinceañera, special-occasion and maternity dresses, plus formalwear for men. Explore each collection in our online catalog.",
+    "open": "Open catalog",
+    "viewAll": "View all catalogs",
+    "items": [
+      {
+        "label": "Brides",
+        "tag": "Weddings",
+        "alt": "Bridal gown from the Novialili Dress collection"
+      },
+      {
+        "label": "Quinceañeras",
+        "tag": "Celebrations",
+        "alt": "Quinceañera dress from the Novialili Dress collection"
+      },
+      {
+        "label": "Gentlemen",
+        "tag": "Formalwear",
+        "alt": "Formal suit for men from the Novialili Dress collection"
+      },
+      {
+        "label": "Maternity",
+        "tag": "Expecting mothers",
+        "alt": "Maternity dress from the Novialili Dress collection"
+      },
+      {
+        "label": "Occasions",
+        "tag": "Long dresses",
+        "alt": "Long occasion dress from the Novialili Dress collection"
+      },
+      {
+        "label": "First communion",
+        "tag": "Children",
+        "alt": "First communion dress from the Novialili Dress collection"
+      }
+    ]
+  },
+  "story": {
+    "eyebrow": "Our story",
+    "title": "An atelier with soul",
+    "intro": "We are a company dedicated to dress and suit rental for every kind of occasion, offering a full set of complements and image styling for brides, grooms, bridesmaids, godmothers, boys, girls, quinceañeras, guests, baptisms and formal wear.",
+    "themes": [
+      {
+        "title": "What we feel",
+        "text": "We are delighted to offer new, elegant and unique styles. Pieces made to measure, full of detail, with complex pattern-making and the finest haute couture materials."
+      },
+      {
+        "title": "What we want",
+        "text": "We want the goddess in every woman to shine. We want you to feel spectacular, more than divine, and build a bond of friendship with you through our service."
+      },
+      {
+        "title": "Who we are",
+        "text": "A team passionate about occasion wear, devoted to accompanying you on the most important day of your life with warm, honest and personalised care."
+      }
+    ],
+    "founder": "Carolina Isabel Mota Bueno",
+    "founderRole": "Founder · Novialili Dress",
+    "place": "La Vega, Dominican Republic",
+    "imageAlt": "Bride in an elegant gown at the Novialili Dress atelier in La Vega",
+    "videoEyebrow": "The atelier, told by its founder"
+  },
+  "testimonials": {
+    "eyebrow": "Testimonials",
+    "title": "What our clients say",
+    "rating": "4.9/5",
+    "ratingNote": "7 ratings on our website",
+    "reviewsCta": "Read reviews on Google",
+    "items": [
+      {
+        "text": "Excellent service and customer care. The whole team was very friendly and professional, making sure I found exactly what I needed. The suits are great quality and the prices quite accessible. Without a doubt, it is my go-to place for special occasions.",
+        "author": "Wilton Tavarez"
+      },
+      {
+        "text": "A very efficient staff, excellent service and they always find the perfect detail for your special day. I love Novialili Dress for all my special occasions.",
+        "author": "Jurissa Mota"
+      },
+      {
+        "text": "I have no words to describe the excellent service I received from this company. Their team did everything possible to meet our needs and exceeded our expectations.",
+        "author": "Oliver Thomas"
+      }
+    ]
+  },
+  "cta": {
+    "titleStart": "Find the perfect look for your",
+    "titleItalic": "special occasion",
+    "text": "Private and personalised service by appointment. Call us or message us on WhatsApp to book your visit to the atelier.",
+    "primary": "Call us · 829-566-0664",
+    "secondary": "Message us on WhatsApp",
+    "note": "La Vega, Dominican Republic · Mon–Fri 8:00–18:00 · Sat 8:00–15:00"
+  },
+  "footer": {
+    "tagline": "Dress and suit rental atelier for the most important moments of your life. La Vega, Dominican Republic.",
+    "navTitle": "Explore",
+    "contactTitle": "Contact",
+    "hoursTitle": "Hours",
+    "address": "Near the student park, callejón de Los Mota, La Vega 41000",
+    "hours": [
+      { "day": "Monday to Friday", "time": "8:00 – 18:00" },
+      { "day": "Saturday", "time": "8:00 – 15:00" },
+      { "day": "Sunday", "time": "Closed" }
+    ],
+    "followTitle": "Follow us",
+    "rights": "All rights reserved."
+  },
+  "a11y": {
+    "skip": "Skip to content",
+    "menuLabel": "Main navigation",
+    "openMenu": "Open navigation menu",
+    "closeMenu": "Close navigation menu",
+    "switchTo": "Cambiar a español",
+    "switchToLabel": "Change language to Spanish",
+    "backToTop": "Back to top"
+  }
+}
