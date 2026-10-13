@@ -148,6 +148,7 @@ const { t } = ui(Astro.currentLocale)
 
 <script>
   import { fetchReviews, submitReview, SUPABASE_CONFIGURED } from '../lib/supabase'
+  import type { Review } from '../lib/supabase'
 
   const root = document.querySelector<HTMLElement>('[data-reviews]')
   const list = root?.querySelector<HTMLUListElement>('[data-review-list]')
@@ -179,10 +180,16 @@ const { t } = ui(Astro.currentLocale)
 
   let rating = 0
 
-  const escapeHtml = (s) =>
-    s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]))
+  const HTML_ESCAPES: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  }
+  const escapeHtml = (s: string) => s.replace(/[&<>"']/g, (c) => HTML_ESCAPES[c] ?? c)
 
-  const buildCard = (r) => {
+  const buildCard = (r: Review) => {
     const li = document.createElement('li')
     li.className = 'flex flex-col gap-3 rounded-2xl border border-rose-100 bg-ivory-50 p-6 shadow-sm'
     const stars = '★'.repeat(Math.max(0, Math.min(5, r.rating))) + '☆'.repeat(5 - Math.max(0, Math.min(5, r.rating)))
@@ -206,12 +213,12 @@ const { t } = ui(Astro.currentLocale)
     })
   }
 
-  const setStatus = (msg, tone) => {
+  const setStatus = (msg: string, tone: string) => {
     status.textContent = msg
     status.className = `mt-4 text-sm leading-relaxed ${tone}`
   }
 
-  async function load() {
+  const load = async () => {
     if (!SUPABASE_CONFIGURED) {
       loader.classList.add('hidden')
       emptyMsg.textContent = texts.disabled
