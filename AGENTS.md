@@ -7,12 +7,13 @@ Astro 7 + Tailwind CSS v4 site (pnpm). Bilingual landing page for the Novialili 
 - Install with `pnpm install` only (repo has `pnpm-lock.yaml`; Node >= 22.12). Dependencies: `i18next` (translations), `tailwind-animations` (CSS-only animation utilities), `lite-youtube-embed` (facade YouTube player in the story section). `sharp` is still installed but unused (no `astro:assets` `<Image>`s remain).
 - Start the dev server in background mode: `pnpm exec astro dev --background` (or `pnpm dev -- --background`). Manage it with `pnpm exec astro dev stop`, `astro dev status`, and `astro dev logs [--follow]`.
 - `astro dev` auto-backgrounds when run by an agent (`isRunByAgent` detection in Astro 7.3+), so the server won't block your shell; query it with `astro dev status`.
-- `pnpm build` / `pnpm preview` for production builds. **There are no `lint`, `format`, `test`, or `check` scripts.**
+- `pnpm build` / `pnpm preview` for production builds. `pnpm check` runs `astro check` (type-check: `.astro`, `.ts`). Requires `typescript@6` — `astro check` rejects TypeScript 7 (`@astrojs/ts-content-mapper` is the TS 7.1+ path). **There are no `lint`, `format`, or `test` scripts.**
 
 ## Lint / format gotchas
 
 - `eslint.config.mjs` is a copy-paste from a Next.js project: it imports `eslint-config-next`, which is not a dependency, so eslint currently errors on load. Don't run or trust it. `eslint-plugin-astro` and `astro-eslint-parser` are installed but not wired into the config.
 - Formatting is Prettier (`.prettierrc`): no semicolons, double quotes, printWidth 100, `prettier-plugin-tailwindcss` sorts utility classes. Run it directly since there is no script: `pnpm exec prettier --write .`
+- Client `<script>` type-checking gotchas (both hit us once): (1) **`define:vars` scripts are inlined verbatim — Astro does NOT transpile TypeScript in them**, so TS syntax (`<HTMLElement>`, `Set<string>`) ships as invalid JS to the browser. Pass i18n via `data-*` attributes and use a normal hoisted `<script>` (which *is* transpiled/bundled) instead. (2) `async function load()` declarations are hoisted, so TS narrowing from a `querySelector` null-guard above them does **not** apply inside — use `const load = async () => {…}` defined after the guard. Also type `querySelector<T>()` (bare `querySelector` returns `Element | null`, which lacks `.dataset`/`.elements`/`.value`/`.href`).
 
 ## Architecture
 

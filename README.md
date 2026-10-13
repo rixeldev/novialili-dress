@@ -133,6 +133,7 @@ novialili-dress/
 | `pnpm dev` | Dev server en `localhost:4321` |
 | `pnpm build` | Build de producción → `dist/` |
 | `pnpm preview` | Previsualiza `dist/` localmente |
+| `pnpm check` | Type-check de `.astro` y `.ts` (`astro check`) |
 | `pnpm exec prettier --write .` | Formatea todo (no hay script de format) |
 | `pnpm exec astro dev status` | Estado del dev server en background |
 
