@@ -14,7 +14,7 @@ export const SITE = {
   pinterest: "https://es.pinterest.com/NOVIALILIDRESS/",
   youtube: "https://youtube.com/@NOVIALILIDRESS8",
   tiktok: "https://tiktok.com/@NOVIALILI8",
-  googleReviews: "https://maps.app.goo.gl/H7eRvoDETf3i7anw8",
+  googleReviews: "https://www.google.com/maps/place/Novialili+Dress/@19.220928,-70.5254279,517m/data=!3m1!1e3!4m8!3m7!1s0x8eb02bdbc3a7f0b9:0x6bfd204982609c9!8m2!3d19.2208495!4d-70.5258838!9m1!1b1!16s%2Fg%2F11k_r9gxyn?entry=ttu&g_ep=EgoyMDI2MTAwNy4wIKXMDSoASAFQAw%3D%3D",
 } as const
 
 /** Real online catalogs (Canva) linked from the reference /catalogos page. */
