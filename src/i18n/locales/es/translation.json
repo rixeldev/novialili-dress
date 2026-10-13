@@ -26,10 +26,16 @@
     "title": "¿Por qué elegir Novialili Dress?",
     "items": [
       { "title": "Diseños exclusivos", "text": "Piezas únicas seleccionadas para que brilles." },
-      { "title": "Ajustes personalizados", "text": "Tu vestido, ajustado a tu medida a la perfección." },
+      {
+        "title": "Ajustes personalizados",
+        "text": "Tu vestido, ajustado a tu medida a la perfección."
+      },
       { "title": "Asesoría profesional", "text": "Te acompañamos en cada detalle de tu look." },
       { "title": "Accesorios incluidos", "text": "Complementos para completar tu outfit." },
-      { "title": "Atención privada por cita", "text": "Una experiencia dedicada por completo a ti." }
+      {
+        "title": "Atención privada por cita",
+        "text": "Una experiencia dedicada por completo a ti."
+      }
     ]
   },
   "collection": {
@@ -122,7 +128,39 @@
     "text": "Atención privada y personalizada por cita. Llámanos o escríbenos por WhatsApp y agenda tu visita al atelier.",
     "primary": "Llámanos · 829-566-0664",
     "secondary": "Escríbenos por WhatsApp",
-    "note": "La Vega, República Dominicana · Lun a Vie 8:00–18:00 · Sáb 8:00–15:00"
+    "note": "La Vega, República Dominicana · Lun a Vie 8:00–18:00 · Sáb 8:00–15:00",
+    "stepper": {
+      "title": "Agenda por WhatsApp en 2 pasos",
+      "stepOccasion": "¿Para qué ocasión?",
+      "stepDate": "¿Para cuándo?",
+      "noDate": "Aún sin fecha definida",
+      "submit": "Armar y enviar mi mensaje",
+      "preview": "Así quedará tu mensaje",
+      "msg": "Hola Novialili Dress! Me encantaría agendar una cita para",
+      "msgFor": "y me interesa aproximadamente este mes:",
+      "occasions": [
+        "una novia",
+        "una quinceañera",
+        "una primera comunión",
+        "una futura mamá",
+        "un caballero",
+        "una ocasión especial"
+      ],
+      "months": [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre"
+      ]
+    }
   },
   "footer": {
     "tagline": "Atelier de alquiler de vestidos y trajes para los momentos más importantes de tu vida. La Vega, República Dominicana.",
@@ -137,6 +175,107 @@
     ],
     "followTitle": "Síguenos",
     "rights": "Todos los derechos reservados."
+  },
+  "board": {
+    "save": "Guardar en tu Novia Board",
+    "saved": "¡Guardado en tu Novia Board!",
+    "title": "Tu Novia Board",
+    "empty": "Toca el corazón en los vestidos que amas para guardarlos aquí.",
+    "count": "favoritos",
+    "copyLink": "Copiar link",
+    "copied": "¡Link copiado!",
+    "whatsapp": "Enviar por WhatsApp",
+    "clear": "Limpiar",
+    "shareMsg": "¡Mira mi Novia Board en Novialili Dress! 💍 Elegí estos looks:",
+    "reserve": "Apartar",
+    "reserveAria": "Apartar este vestido",
+    "reserveMsg": "Hola Novialili Dress! Quiero apartar el vestido de",
+    "reserveMsgTail": "¿Cómo puedo hacer la señal y qué fechas tienen disponible?"
+  },
+  "packages": {
+    "eyebrow": "Paquetes",
+    "title": "El look completo, en un solo paquete",
+    "intro": "Vestido, accesorios y ajustes juntos: menos estrés y todo a juego para tu gran día.",
+    "popular": "El más pedido",
+    "msg": "Hola Novialili Dress! Me interesa el paquete",
+    "msgTail": "¿Me cuentan precios y disponibilidad?",
+    "extraTitle": "¿Buscas solo un accesorio?",
+    "extraCta": "Escríbenos por WhatsApp",
+    "items": [
+      {
+        "name": "Novia completa",
+        "tagline": "Todo lo que necesitas para el sí, en un solo look.",
+        "cta": "Cotizar paquete Novia",
+        "includes": ["Vestido de novia", "Tiara, velo y aretes", "Ajustes incluidos", "Asesoría personalizada"]
+      },
+      {
+        "name": "Quinceañera total",
+        "tagline": "El look de XV completo, de la cabeza a los pies.",
+        "cta": "Cotizar paquete Quinceañera",
+        "includes": ["Vestido de quinceañera", "Accesorios a juego", "Ajustes incluidos", "Asesoría personalizada"]
+      },
+      {
+        "name": "Caballero de gala",
+        "tagline": "Impecable de principio a fin, con todos los detalles.",
+        "cta": "Cotizar paquete Caballero",
+        "includes": ["Traje elegante", "Corbata y accesorios", "Ajustes incluidos", "Asesoría personalizada"]
+      }
+    ]
+  },
+  "referrals": {
+    "eyebrow": "Referidos",
+    "title": "Trae a tu amiga y gana con ella",
+    "text": "La recomendación en Novialili Dress tiene recompensa: por cada reserva que llegue recomendada por ti, acumulas beneficios para tu próxima visita al atelier.",
+    "stepsTitle": "Cómo funciona",
+    "steps": [
+      "Comparte nuestro sitio con tu amiga",
+      "Ella reserva su vestido y menciona tu nombre",
+      "Recibe tu beneficio al visitar el atelier"
+    ],
+    "cta": "Quiero participar",
+    "msg": "Hola Novialili Dress! 💕 Quiero participar en el programa de referidos."
+  },
+  "leads": {
+    "eyebrow": "Tu perfil de novia",
+    "title": "Guárdanos un lugar en tu lista",
+    "intro": "Cuéntanos qué celebras y para cuándo: recibirás avisos de disponibilidad y promociones de tu temporada antes que nadie.",
+    "name": "Tu nombre",
+    "event": "¿Qué celebras?",
+    "events": ["Una novia", "Una quinceañera", "Una comunión", "Un caballero", "Otra ocasión"],
+    "month": "Mes",
+    "noMonth": "Aún sin definir",
+    "year": "Año",
+    "whatsapp": "Tu WhatsApp",
+    "submit": "Guardar mi perfil",
+    "saving": "Guardando tu perfil…",
+    "thanks": "¡Listo! Te avisaremos en tu temporada. 💌",
+    "error": "No pudimos guardar tu perfil. Inténtalo de nuevo o escríbenos por WhatsApp.",
+    "required": "Completa al menos tu nombre y tu WhatsApp.",
+    "waSent": "Abre WhatsApp para enviarnos tu perfil 💬",
+    "note": "Tus datos solo se usan para avisarte de disponibilidad y promociones de tu temporada. Nunca los compartimos.",
+    "msgGreet": "Hola Novialili Dress! Soy",
+    "msgEvent": "y celebro",
+    "msgDate": "El evento es para",
+    "msgPhone": "Mi WhatsApp es"
+  },
+  "reviews": {
+    "eyebrow": "Reseñas en vivo",
+    "title": "Lo que dicen en Google",
+    "intro": "Reseñas reales de clientas que ya vivieron la experiencia del atelier.",
+    "beFirst": "Sé la primera en dejar tu reseña.",
+    "rateTitle": "Deja tu reseña",
+    "name": "Tu nombre",
+    "rating": "Tu valoración",
+    "comment": "Cuéntanos tu experiencia",
+    "submit": "Publicar reseña",
+    "saving": "Guardando tu reseña…",
+    "thanks": "¡Gracias! Tu reseña se publicó correctamente.",
+    "error": "No pudimos guardar tu reseña. Inténtalo de nuevo o escríbenos por WhatsApp.",
+    "required": "Completa tu nombre, tu valoración y tu comentario antes de enviar.",
+    "loading": "Cargando reseñas…",
+    "gmapsTitle": "Encuéntranos en Google Maps",
+    "gmapsCta": "Ver todas las reseñas en Google",
+    "disabled": "El sistema de reseñas en vivo requiere configuración de Supabase."
   },
   "a11y": {
     "skip": "Saltar al contenido",

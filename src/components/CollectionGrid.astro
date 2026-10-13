@@ -1,7 +1,7 @@
 ---
 import Icon from './Icon.astro'
 import { ui } from '../i18n'
-import { CATALOG_URLS } from '../lib/site'
+import { SITE, CATALOG_URLS } from '../lib/site'
 
 const { t } = ui(Astro.currentLocale)
 const items = t('collection.items', { returnObjects: true }) as {
@@ -88,6 +88,25 @@ const aspects = [
                 <span class="absolute left-3 top-3 rounded-full bg-ivory-50/90 px-3.5 py-1.5 text-[0.62rem] font-semibold tracking-[0.2em] uppercase text-ink-700 backdrop-blur-xs">
                   {item.tag}
                 </span>
+                <button
+                  type="button"
+                  data-board-i={i}
+                  aria-pressed="false"
+                  aria-label={`${item.label} — ${t('board.save')}`}
+                  class="board-heart absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full bg-ivory-50/90 text-rose-700 opacity-100 shadow backdrop-blur-xs transition-all duration-300 hover:scale-110 active:scale-95 sm:opacity-0 sm:group-hover:opacity-100 sm:focus-visible:opacity-100"
+                >
+                  <Icon name="heart" size={17} class="board-heart-o" />
+                  <Icon name="heartSolid" size={17} class="board-heart-f hidden" />
+                </button>
+                <button
+                  type="button"
+                  data-reserve-i={i}
+                  aria-label={`${t('board.reserveAria')} — ${item.label}`}
+                  class="reserve-btn absolute bottom-3 left-3 inline-flex translate-y-0 items-center gap-1.5 rounded-full bg-rose-800 px-4 py-2 text-[0.62rem] font-semibold tracking-[0.18em] uppercase text-ivory-50 opacity-100 shadow-lg shadow-rose-900/30 transition-all duration-300 hover:bg-rose-900 active:scale-95 sm:translate-y-1.5 sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:opacity-100 sm:focus-visible:translate-y-0 sm:focus-visible:opacity-100"
+                >
+                  <Icon name="calendar" size={13} />
+                  {t('board.reserve')}
+                </button>
                 <span
                   class="absolute bottom-3 right-3 grid h-10 w-10 -translate-y-1 place-items-center rounded-full bg-ivory-50 text-ink-900 opacity-0 shadow-lg transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100"
                   aria-hidden="true"
@@ -114,6 +133,52 @@ const aspects = [
       }
     </div>
 
+    <!-- Novia Board: favoritos compartibles -->
+    <div
+      class="mt-16 rounded-3xl border border-rose-200 bg-ivory-50 p-6 shadow-sm sm:p-8 lg:flex lg:items-center lg:justify-between"
+      data-board-bar
+    >
+      <div>
+        <p class="font-serif text-2xl italic leading-none text-ink-900">
+          {t('board.title')}
+          <span class="ml-3 not-italic text-rose-700">
+            <span data-board-count>0</span>
+            <span class="ml-1.5 text-sm font-medium tracking-wide text-ink-500 uppercase">
+              {t('board.count')}
+            </span>
+          </span>
+        </p>
+        <p class="mt-2 text-sm text-ink-600" data-board-empty>{t('board.empty')}</p>
+      </div>
+      <div class="mt-6 flex flex-wrap gap-3 lg:mt-0">
+        <button
+          data-board-copy
+          type="button"
+          class="inline-flex items-center gap-2 rounded-full border border-rose-700 px-5 py-3 text-xs font-semibold tracking-[0.16em] uppercase text-rose-700 transition-colors hover:bg-rose-700 hover:text-ivory-50 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-rose-700"
+        >
+          <Icon name="link" size={14} />
+          <span data-board-copy-label>{t('board.copyLink')}</span>
+        </button>
+        <a
+          data-board-share
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-3 text-xs font-semibold tracking-[0.16em] uppercase text-ivory-50 shadow-lg shadow-emerald-600/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-emerald-700"
+        >
+          <Icon name="whatsapp" size={15} />
+          {t('board.whatsapp')}
+        </a>
+        <button
+          data-board-clear
+          type="button"
+          class="inline-flex items-center gap-2 rounded-full px-5 py-3 text-xs font-semibold tracking-[0.16em] uppercase text-ink-500 transition-colors hover:text-rose-700 disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          {t('board.clear')}
+        </button>
+      </div>
+    </div>
+
     <div class="mt-20 text-center" data-reveal>
       <a
         href={CATALOG_URLS.viewAll}
@@ -127,3 +192,104 @@ const aspects = [
     </div>
   </div>
 </section>
+
+<script define:vars={{ labels: items.map((i) => i.label), waBase: SITE.whatsappHref, shareMsg: t('board.shareMsg'), copyLink: t('board.copyLink'), copied: t('board.copied'), save: t('board.save'), saved: t('board.saved'), reserveMsg: t('board.reserveMsg'), reserveMsgTail: t('board.reserveMsgTail') }}>
+  const KEY = 'novialili-novia-board'
+  const hearts = Array.from(document.querySelectorAll('[data-board-i]'))
+  const countEl = document.querySelector('[data-board-count]')
+  const emptyEl = document.querySelector('[data-board-empty]')
+  const copyBtn = document.querySelector('[data-board-copy]')
+  const copyLabel = document.querySelector('[data-board-copy-label]')
+  const shareBtn = document.querySelector('[data-board-share]')
+  const clearBtn = document.querySelector('[data-board-clear]')
+
+  let favs = new Set()
+  try {
+    favs = new Set(JSON.parse(localStorage.getItem(KEY) || '[]'))
+  } catch {}
+
+  /* Un link entrante (?noviaboard=0,2,4) sincroniza el tablero */
+  const params = new URLSearchParams(location.search)
+  if (params.has('noviaboard')) {
+    favs = new Set(
+      params
+        .get('noviaboard')
+        .split(',')
+        .filter((n) => n !== '')
+    )
+    try {
+      localStorage.setItem(KEY, JSON.stringify([...favs]))
+    } catch {}
+  }
+
+  const favsList = () => [...favs].map((i) => labels[Number(i)]).join(', ')
+
+  const boardUrl = () => `${location.origin}${location.pathname}?noviaboard=${[...favs].join(',')}`
+
+  const render = () => {
+    hearts.forEach((h) => {
+      const on = favs.has(h.dataset.boardI)
+      h.classList.toggle('is-on', on)
+      h.setAttribute('aria-pressed', String(on))
+      h.setAttribute('aria-label', `${labels[Number(h.dataset.boardI)]} — ${on ? saved : save}`)
+    })
+    countEl.textContent = String(favs.size)
+    emptyEl.classList.toggle('hidden', favs.size > 0)
+    const canShare = favs.size > 0
+    copyBtn.disabled = !canShare
+    clearBtn.disabled = !canShare
+    shareBtn.classList.toggle('pointer-events-none', !canShare)
+    shareBtn.classList.toggle('opacity-40', !canShare)
+    if (canShare) {
+      shareBtn.href = `${waBase}&text=${encodeURIComponent(`${shareMsg}\n${favsList()}\n${boardUrl()}`)}`
+    }
+  }
+
+  hearts.forEach((h) => {
+    h.addEventListener('click', (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      const i = h.dataset.boardI
+      const adding = !favs.has(i)
+      favs.has(i) ? favs.delete(i) : favs.add(i)
+      try {
+        localStorage.setItem(KEY, JSON.stringify([...favs]))
+      } catch {}
+      render()
+      if (adding) {
+        h.classList.remove('heart-pop')
+        void h.offsetWidth
+        h.classList.add('heart-pop')
+      }
+    })
+  })
+
+  copyBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(boardUrl())
+      copyLabel.textContent = copied
+      setTimeout(() => (copyLabel.textContent = copyLink), 2200)
+    } catch {}
+  })
+
+  clearBtn.addEventListener('click', () => {
+    favs.clear()
+    try {
+      localStorage.setItem(KEY, JSON.stringify([]))
+    } catch {}
+    render()
+  })
+
+  /* "Aparta tu vestido": abre WhatsApp con el mensaje de señal pre-armado */
+  document.querySelectorAll('[data-reserve-i]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+      const i = btn.dataset.reserveI
+      const text = `${reserveMsg} ${labels[Number(i)]}. ${reserveMsgTail}`
+      window.open(`${waBase}&text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer')
+    })
+  })
+
+  render()
+</script>

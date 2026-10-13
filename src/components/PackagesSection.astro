@@ -1,0 +1,101 @@
+---
+import Icon from './Icon.astro'
+import { ui } from '../i18n'
+import { SITE } from '../lib/site'
+
+const { t } = ui(Astro.currentLocale)
+const packages = t('packages.items', { returnObjects: true }) as {
+  name: string
+  tagline: string
+  cta: string
+  includes: string[]
+}[]
+
+const wa = (msg: string) => `${SITE.whatsappHref}&text=${encodeURIComponent(msg)}`
+---
+
+<section id="paquetes" class="bg-ivory-50 py-24 sm:py-32" aria-labelledby="packages-title">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mx-auto max-w-2xl text-center" data-reveal>
+      <p class="eyebrow flex items-center justify-center gap-3 text-rose-700">
+        <span class="h-px w-10 bg-rose-300" aria-hidden="true"></span>
+        {t('packages.eyebrow')}
+        <span class="h-px w-10 bg-rose-300" aria-hidden="true"></span>
+      </p>
+      <h2 id="packages-title" class="mt-5 font-serif text-4xl leading-tight text-ink-900 sm:text-5xl">
+        {t('packages.title')}
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-ink-700/90">{t('packages.intro')}</p>
+    </div>
+
+    <ul class="mt-16 grid gap-8 lg:grid-cols-3">
+      {packages.map((pkg, i) => (
+        <li
+          class={`relative flex flex-col rounded-4xl p-9 ${
+            i === 0
+              ? 'bg-rose-800 text-ivory-50 shadow-2xl shadow-rose-900/25 lg:-translate-y-4'
+              : 'border border-rose-100 bg-ivory-50 text-ink-900 shadow-sm'
+          }`}
+          data-reveal
+          style={`transition-delay: ${i * 120}ms`}
+        >
+          {i === 0 && (
+            <span
+              class={`absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-5 py-1.5 text-[0.62rem] font-semibold tracking-[0.2em] uppercase ${
+                i === 0 ? 'bg-ivory-50 text-rose-800 shadow' : ''
+              }`}
+            >
+              ✦ {t('packages.popular')}
+            </span>
+          )}
+
+          <h3 class="font-serif text-3xl leading-tight">{pkg.name}</h3>
+          <p class={`mt-3 text-sm leading-relaxed ${i === 0 ? 'text-ivory-100/90' : 'text-ink-600'}`}>
+            {pkg.tagline}
+          </p>
+
+          <ul class="mt-8 space-y-3">
+            {pkg.includes.map((inc) => (
+              <li class={`flex items-start gap-3 text-sm leading-relaxed ${i === 0 ? 'text-ivory-50' : 'text-ink-700'}`}>
+                <Icon
+                  name="check"
+                  size={16}
+                  class={`mt-0.5 shrink-0 ${i === 0 ? 'text-ivory-100' : 'text-rose-600'}`}
+                />
+                {inc}
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href={wa(`${t('packages.msg')} ${pkg.name}. ${t('packages.msgTail')}`)}
+            target="_blank"
+            rel="noopener noreferrer"
+            class={`mt-9 inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-4 text-xs font-semibold tracking-[0.18em] uppercase transition-all duration-300 hover:-translate-y-0.5 ${
+              i === 0
+                ? 'bg-ivory-50 text-rose-800 shadow-lg hover:bg-ivory-100'
+                : 'bg-rose-800 text-ivory-50 shadow-lg shadow-rose-800/25 hover:bg-rose-900'
+            }`}
+          >
+            <Icon name="whatsapp" size={15} />
+            {pkg.cta}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <div class="mt-14 text-center" data-reveal>
+      <p class="text-sm italic text-ink-500">
+        {t('packages.extraTitle')}
+        <a
+          href={SITE.whatsappHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="ml-2 border-b border-rose-700 pb-0.5 text-xs font-semibold tracking-[0.18em] uppercase text-rose-700 transition-colors hover:border-rose-800 hover:text-rose-800"
+        >
+          {t('packages.extraCta')}
+        </a>
+      </p>
+    </div>
+  </div>
+</section>

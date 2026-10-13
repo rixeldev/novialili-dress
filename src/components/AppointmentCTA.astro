@@ -4,6 +4,8 @@ import { ui } from '../i18n'
 import { SITE } from '../lib/site'
 
 const { t } = ui(Astro.currentLocale)
+const occasions = t('cta.stepper.occasions', { returnObjects: true }) as string[]
+const months = t('cta.stepper.months', { returnObjects: true }) as string[]
 ---
 
 <section id="contacto" class="bg-ivory-100 py-24 sm:py-32" aria-labelledby="cta-title">
@@ -18,7 +20,7 @@ const { t } = ui(Astro.currentLocale)
         width="640"
         height="360"
         class="pointer-events-none absolute -right-8 -top-10 w-44 rotate-12 opacity-30"
-      />
+      /> 
 
       <div class="relative mx-auto max-w-2xl text-center">
         <p class="eyebrow flex items-center justify-center gap-3 text-rose-700">
@@ -54,7 +56,89 @@ const { t } = ui(Astro.currentLocale)
           <Icon name="clock" size={14} class="text-rose-700" />
           {t('cta.note')}
         </p>
+
+        <!-- Stepper: agendar por WhatsApp con contexto -->
+        <div
+          class="mx-auto mt-14 max-w-xl rounded-3xl bg-ivory-50/85 p-6 text-left shadow-xl shadow-rose-800/5 backdrop-blur-sm sm:p-8"
+          data-wa-step
+          data-msg={t('cta.stepper.msg')}
+          data-msg-for={t('cta.stepper.msgFor')}
+        >
+          <p class="font-serif text-xl italic leading-snug text-ink-900">
+            ✨ {t('cta.stepper.title')}
+          </p>
+
+          <label class="mt-6 block">
+            <span class="text-[0.62rem] font-semibold tracking-[0.22em] uppercase text-ink-500">
+              {t('cta.stepper.stepOccasion')}
+            </span>
+            <select
+              data-wa-occasion
+              class="mt-2 w-full rounded-full border border-rose-200 bg-ivory-50 px-5 py-3 text-sm text-ink-900 outline-none transition-colors focus:border-rose-500"
+            >
+              {occasions.map((occasion) => (
+                <option value={occasion}>{occasion}</option>
+              ))}
+            </select>
+          </label>
+
+          <label class="mt-4 block">
+            <span class="text-[0.62rem] font-semibold tracking-[0.22em] uppercase text-ink-500">
+              {t('cta.stepper.stepDate')}
+            </span>
+            <select
+              data-wa-month
+              class="mt-2 w-full rounded-full border border-rose-200 bg-ivory-50 px-5 py-3 text-sm text-ink-900 outline-none transition-colors focus:border-rose-500"
+            >
+              <option value="">{t('cta.stepper.noDate')}</option>
+              {months.map((month) => (
+                <option value={month}>{month}</option>
+              ))}
+            </select>
+          </label>
+
+          <p class="mt-5 text-xs leading-relaxed text-ink-600">
+            <span class="font-semibold text-ink-500">{t('cta.stepper.preview')}:</span>{' '}
+            <span data-wa-preview class="italic text-ink-700"></span>
+          </p>
+
+          <a
+            data-wa-send
+            data-wa-base={SITE.whatsappHref}
+            href={SITE.whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="mt-6 flex w-full items-center justify-center gap-2.5 rounded-full bg-emerald-600 px-8 py-4 text-xs font-semibold tracking-[0.18em] uppercase text-ivory-50 shadow-lg shadow-emerald-600/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-emerald-700"
+          >
+            <Icon name="whatsapp" size={16} />
+            {t('cta.stepper.submit')}
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  const root = document.querySelector('[data-wa-step]')
+  if (root) {
+    const occasion = root.querySelector('[data-wa-occasion]')
+    const month = root.querySelector('[data-wa-month]')
+    const preview = root.querySelector('[data-wa-preview]')
+    const send = root.querySelector('[data-wa-send]')
+    const base = send.dataset.waBase
+    const msg = root.dataset.msg
+    const msgFor = root.dataset.msgFor
+
+    const update = () => {
+      const occ = occasion.options[occasion.selectedIndex].textContent
+      const m = month.value
+      const text = `${msg} ${occ}${m ? `, ${msgFor} ${m}.` : '.'}`
+      preview.textContent = text
+      send.href = `${base}&text=${encodeURIComponent(text)}`
+    }
+    occasion.addEventListener('change', update)
+    month.addEventListener('change', update)
+    update()
+  }
+</script>

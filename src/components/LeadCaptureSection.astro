@@ -1,0 +1,192 @@
+---
+import Icon from './Icon.astro'
+import { ui } from '../i18n'
+import { SITE } from '../lib/site'
+
+const { t } = ui(Astro.currentLocale)
+const events = t('leads.events', { returnObjects: true }) as string[]
+const months = t('cta.stepper.months', { returnObjects: true }) as string[]
+const year = new Date().getFullYear()
+const years = [year, year + 1, year + 2]
+---
+
+<section id="perfil" class="bg-ivory-100 py-24 sm:py-32" aria-labelledby="leads-title">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mx-auto max-w-2xl text-center" data-reveal>
+      <p class="eyebrow flex items-center justify-center gap-3 text-rose-700">
+        <span class="h-px w-10 bg-rose-300" aria-hidden="true"></span>
+        {t('leads.eyebrow')}
+        <span class="h-px w-10 bg-rose-300" aria-hidden="true"></span>
+      </p>
+      <h2 id="leads-title" class="mt-5 font-serif text-4xl leading-tight text-ink-900 sm:text-5xl">
+        {t('leads.title')}
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-ink-700/90">{t('leads.intro')}</p>
+    </div>
+
+    <form
+      data-lead-form
+      class="mx-auto mt-12 max-w-2xl rounded-3xl border border-rose-100 bg-ivory-50 p-6 shadow-xl shadow-rose-100/60 sm:p-10"
+      data-wa-base={SITE.whatsappHref}
+      data-msg-greet={t('leads.msgGreet')}
+      data-msg-event={t('leads.msgEvent')}
+      data-msg-date={t('leads.msgDate')}
+      data-msg-phone={t('leads.msgPhone')}
+      data-required={t('leads.required')}
+      data-saving={t('leads.saving')}
+      data-thanks={t('leads.thanks')}
+      data-wa-sent={t('leads.waSent')}
+      data-error={t('leads.error')}
+    >
+      <div class="grid gap-5 sm:grid-cols-2">
+        <label class="block sm:col-span-2">
+          <span class="text-[0.62rem] font-semibold tracking-[0.22em] uppercase text-ink-500">
+            {t('leads.name')}
+          </span>
+          <input
+            name="name"
+            type="text"
+            required
+            maxlength="80"
+            autocomplete="name"
+            class="mt-2 w-full rounded-2xl border border-rose-200 bg-ivory-50 px-5 py-3 text-sm text-ink-900 outline-none transition-colors placeholder:text-ink-400 focus:border-rose-500"
+            placeholder={t('leads.name')}
+          />
+        </label>
+
+        <label class="block">
+          <span class="text-[0.62rem] font-semibold tracking-[0.22em] uppercase text-ink-500">
+            {t('leads.event')}
+          </span>
+          <select
+            name="event"
+            class="mt-2 w-full rounded-2xl border border-rose-200 bg-ivory-50 px-5 py-3 text-sm text-ink-900 outline-none transition-colors focus:border-rose-500"
+          >
+            {events.map((ev) => (
+              <option value={ev}>{ev}</option>
+            ))}
+          </select>
+        </label>
+
+        <div class="grid grid-cols-2 gap-5">
+          <label class="block">
+            <span class="text-[0.62rem] font-semibold tracking-[0.22em] uppercase text-ink-500">
+              {t('leads.month')}
+            </span>
+            <select
+              name="month"
+              class="mt-2 w-full rounded-2xl border border-rose-200 bg-ivory-50 px-5 py-3 text-sm text-ink-900 outline-none transition-colors focus:border-rose-500"
+            >
+              <option value="">{t('leads.noMonth')}</option>
+              {months.map((m) => (
+                <option value={m}>{m}</option>
+              ))}
+            </select>
+          </label>
+          <label class="block">
+            <span class="text-[0.62rem] font-semibold tracking-[0.22em] uppercase text-ink-500">
+              {t('leads.year')}
+            </span>
+            <select
+              name="year"
+              class="mt-2 w-full rounded-2xl border border-rose-200 bg-ivory-50 px-5 py-3 text-sm text-ink-900 outline-none transition-colors focus:border-rose-500"
+            >
+              <option value=""></option>
+              {years.map((y) => (
+                <option value={y}>{y}</option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        <label class="block sm:col-span-2">
+          <span class="text-[0.62rem] font-semibold tracking-[0.22em] uppercase text-ink-500">
+            {t('leads.whatsapp')}
+          </span>
+          <input
+            name="whatsapp"
+            type="tel"
+            required
+            inputmode="tel"
+            maxlength="20"
+            autocomplete="tel"
+            class="mt-2 w-full rounded-2xl border border-rose-200 bg-ivory-50 px-5 py-3 text-sm text-ink-900 outline-none transition-colors placeholder:text-ink-400 focus:border-rose-500"
+            placeholder="809-000-0000"
+          />
+        </label>
+      </div>
+
+      <button
+        type="submit"
+        class="mt-8 cursor-pointer inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-rose-800 px-8 py-4 text-xs font-semibold tracking-[0.18em] uppercase text-ivory-50 shadow-lg shadow-rose-800/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-rose-900"
+      >
+        <Icon name="heart" size={15} />
+        {t('leads.submit')}
+      </button>
+
+      <p class="mt-4 hidden text-sm leading-relaxed" data-lead-status aria-live="polite"></p>
+      <p class="mt-5 text-center text-xs leading-relaxed text-ink-500">{t('leads.note')}</p>
+    </form>
+  </div>
+</section>
+
+<script>
+  import { submitLead, SUPABASE_CONFIGURED } from '../lib/supabase'
+
+  const form = document.querySelector('[data-lead-form]')
+  if (!form) throw new Error('LeadCapture: no se encontró [data-lead-form]')
+
+  const status = form.querySelector('[data-lead-status]')
+  const texts = {
+    required: form.dataset.required,
+    saving: form.dataset.saving,
+    thanks: form.dataset.thanks,
+    waSent: form.dataset.waSent,
+    error: form.dataset.error,
+  }
+  const msgParts = {
+    greet: form.dataset.msgGreet,
+    event: form.dataset.msgEvent,
+    date: form.dataset.msgDate,
+    phone: form.dataset.msgPhone,
+  }
+
+  const setStatus = (msg, tone) => {
+    status.textContent = msg
+    status.className = `mt-4 text-sm leading-relaxed ${tone}`
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    const name = form.elements.name.value.trim()
+    const whatsapp = form.elements.whatsapp.value.trim()
+    const event = form.elements.event.options[form.elements.event.selectedIndex].textContent
+    const month = form.elements.month.value
+    const year = form.elements.year.value
+
+    if (!name || !whatsapp) {
+      setStatus(texts.required, 'text-rose-700')
+      return
+    }
+
+    const lead = { name, event, month, year, whatsapp }
+
+    if (SUPABASE_CONFIGURED) {
+      setStatus(texts.saving, 'text-ink-500')
+      try {
+        await submitLead(lead)
+        form.reset()
+        setStatus(texts.thanks, 'text-emerald-700')
+      } catch {
+        setStatus(texts.error, 'text-rose-700')
+      }
+      return
+    }
+
+    const msg = `${msgParts.greet} ${name}. ${msgParts.event} ${event}. ${msgParts.date} ${
+      [month, year].filter(Boolean).join(' ') || '—'
+    }. ${msgParts.phone} ${whatsapp}.`
+    window.open(`${form.dataset.waBase}&text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer')
+    setStatus(texts.waSent, 'text-emerald-700')
+  })
+</script>

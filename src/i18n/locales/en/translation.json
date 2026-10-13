@@ -26,7 +26,10 @@
     "title": "Why choose Novialili Dress?",
     "items": [
       { "title": "Exclusive designs", "text": "Unique pieces selected just for you." },
-      { "title": "Custom alterations", "text": "Your dress, adjusted perfectly to your measurements." },
+      {
+        "title": "Custom alterations",
+        "text": "Your dress, adjusted perfectly to your measurements."
+      },
       { "title": "Professional styling", "text": "We walk you through every detail of your look." },
       { "title": "Accessories included", "text": "Complements to complete your outfit." },
       { "title": "Private, by-appointment care", "text": "An experience devoted entirely to you." }
@@ -122,7 +125,39 @@
     "text": "Private and personalised service by appointment. Call us or message us on WhatsApp to book your visit to the atelier.",
     "primary": "Call us · 829-566-0664",
     "secondary": "Message us on WhatsApp",
-    "note": "La Vega, Dominican Republic · Mon–Fri 8:00–18:00 · Sat 8:00–15:00"
+    "note": "La Vega, Dominican Republic · Mon–Fri 8:00–18:00 · Sat 8:00–15:00",
+    "stepper": {
+      "title": "Book on WhatsApp in 2 steps",
+      "stepOccasion": "What occasion?",
+      "stepDate": "When?",
+      "noDate": "Date not set yet",
+      "submit": "Build and send my message",
+      "preview": "This is how your message will look",
+      "msg": "Hello Novialili Dress! I would love to book an appointment for",
+      "msgFor": "and I am interested around this month:",
+      "occasions": [
+        "a bride",
+        "a quinceañera",
+        "a first communion",
+        "an expecting mom",
+        "a gentleman",
+        "a special occasion"
+      ],
+      "months": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ]
+    }
   },
   "footer": {
     "tagline": "Dress and suit rental atelier for the most important moments of your life. La Vega, Dominican Republic.",
@@ -137,6 +172,107 @@
     ],
     "followTitle": "Follow us",
     "rights": "All rights reserved."
+  },
+  "board": {
+    "save": "Save to your Novia Board",
+    "saved": "Saved to your Novia Board!",
+    "title": "Your Novia Board",
+    "empty": "Tap the heart on the dresses you love to save them here.",
+    "count": "favorites",
+    "copyLink": "Copy link",
+    "copied": "Link copied!",
+    "whatsapp": "Send on WhatsApp",
+    "clear": "Clear",
+    "shareMsg": "Check out my Novia Board at Novialili Dress! 💍 I picked these looks:",
+    "reserve": "Reserve",
+    "reserveAria": "Reserve this dress",
+    "reserveMsg": "Hello Novialili Dress! I would like to reserve the dress for",
+    "reserveMsgTail": "How can I make the deposit and which dates do you have available?"
+  },
+  "packages": {
+    "eyebrow": "Packages",
+    "title": "The complete look, in one package",
+    "intro": "Dress, accessories and alterations together: less stress and everything matching for your big day.",
+    "popular": "Most requested",
+    "msg": "Hello Novialili Dress! I am interested in the package",
+    "msgTail": "Could you tell me prices and availability?",
+    "extraTitle": "Looking for just an accessory?",
+    "extraCta": "Message us on WhatsApp",
+    "items": [
+      {
+        "name": "Complete bride",
+        "tagline": "Everything you need for the yes, in one look.",
+        "cta": "Quote bride package",
+        "includes": ["Bridal dress", "Tiara, veil and earrings", "Alterations included", "Personal styling"]
+      },
+      {
+        "name": "Full quinceañera",
+        "tagline": "The complete XV look, head to toe.",
+        "cta": "Quote quinceañera package",
+        "includes": ["Quinceañera dress", "Matching accessories", "Alterations included", "Personal styling"]
+      },
+      {
+        "name": "Gala gentleman",
+        "tagline": "Impeccable from start to finish, with every detail.",
+        "cta": "Quote gentleman package",
+        "includes": ["Elegant suit", "Tie and accessories", "Alterations included", "Personal styling"]
+      }
+    ]
+  },
+  "referrals": {
+    "eyebrow": "Referrals",
+    "title": "Bring a friend and win with her",
+    "text": "Word of mouth at Novialili Dress pays off: for every booking that comes recommended by you, you earn benefits for your next visit to the atelier.",
+    "stepsTitle": "How it works",
+    "steps": [
+      "Share our site with your friend",
+      "She books her dress and mentions your name",
+      "Get your reward when you visit the atelier"
+    ],
+    "cta": "I want to take part",
+    "msg": "Hello Novialili Dress! 💕 I want to take part in the referral program."
+  },
+  "leads": {
+    "eyebrow": "Your bride profile",
+    "title": "Save us a spot on your list",
+    "intro": "Tell us what you are celebrating and when: get availability alerts and season promos before anyone else.",
+    "name": "Your name",
+    "event": "What are you celebrating?",
+    "events": ["A wedding", "A quinceañera", "A first communion", "A gentleman", "Another occasion"],
+    "month": "Month",
+    "noMonth": "Not set yet",
+    "year": "Year",
+    "whatsapp": "Your WhatsApp",
+    "submit": "Save my profile",
+    "saving": "Saving your profile…",
+    "thanks": "Done! We will let you know in your season. 💌",
+    "error": "We could not save your profile. Try again or message us on WhatsApp.",
+    "required": "Fill in at least your name and your WhatsApp.",
+    "waSent": "Open WhatsApp to send us your profile 💬",
+    "note": "Your details are only used to tell you about availability and season promos. We never share them.",
+    "msgGreet": "Hello Novialili Dress! I am",
+    "msgEvent": "celebrating",
+    "msgDate": "The event is for",
+    "msgPhone": "My WhatsApp is"
+  },
+  "reviews": {
+    "eyebrow": "Live reviews",
+    "title": "What they say on Google",
+    "intro": "Real reviews from clients who already lived the atelier experience.",
+    "beFirst": "Be the first to leave your review.",
+    "rateTitle": "Leave your review",
+    "name": "Your name",
+    "rating": "Your rating",
+    "comment": "Tell us about your experience",
+    "submit": "Publish review",
+    "saving": "Saving your review…",
+    "thanks": "Thank you! Your review was published.",
+    "error": "We could not save your review. Try again or message us on WhatsApp.",
+    "required": "Fill in your name, your rating and your comment before sending.",
+    "loading": "Loading reviews…",
+    "gmapsTitle": "Find us on Google Maps",
+    "gmapsCta": "See all reviews on Google",
+    "disabled": "The live review system requires Supabase configuration."
   },
   "a11y": {
     "skip": "Skip to content",
