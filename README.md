@@ -27,6 +27,10 @@ Landing de una sola página con estética editorial de atelier: serif Cormorant 
 - 🖼 **Imágenes en `public/images/`** con `width`/`height` reales (CLS-safe), `loading="lazy"` y `fetchpriority` en el hero.
 - 🎨 **Scroll-reveal** con IntersectionObserver que respeta `prefers-reduced-motion` (sin JS todo es visible).
 - 🧭 **Navegación pegajosa**, botón *volver arriba*, SEO completo (canonical, hreflang, OG, sitemap, robots).
+- 💍 **Novia Board**: favoritos por corazón (localStorage) compartibles por link o WhatsApp (`?noviaboard=0,2`).
+- 📲 **"Aparta tu vestido"**: botón en cada prenda que abre WhatsApp con el mensaje de *señal* pre-armado.
+- 💐 **Paquetes, referidos y perfil de novia**: upsell en 3 paquetes, programa "Trae a tu amiga" y captura de leads (Supabase o WhatsApp).
+- ⭐ **Reseñas en vivo**: formulario → Supabase (`reviews`) + mapa de Google y link a reseñas reales.
 
 ## 🧭 Stack tecnológico
 
@@ -70,9 +74,15 @@ novialili-dress/
 │   ├── components/          # Secciones de la landing + utilidades
 │   │   ├── LandingPage.astro    # Arma la página (header → hero → … → footer)
 │   │   ├── HeroSection.astro    # Hero con swash dibujado + scroll cue
-│   │   ├── CollectionGrid.astro # Catálogo con enlaces de la tienda
+│   │   ├── BrandPromises.astro  # Promesas de marca
+│   │   ├── CollectionGrid.astro # Catálogo + Novia Board + botón "Apartar"
+│   │   ├── PackagesSection.astro  # Paquetes / upsell ("Completa tu look")
 │   │   ├── StorySection.astro   # Historia + video <lite-youtube>
-│   │   ├── AppointmentCTA.astro # CTA de contacto/cita
+│   │   ├── TestimonialsSection.astro
+│   │   ├── ReferralsSection.astro # "Trae a tu amiga" (referidos)
+│   │   ├── ReviewsSection.astro # Reseñas (Supabase) + Google Maps
+│   │   ├── LeadCaptureSection.astro # Perfil de novia (leads → Supabase/WhatsApp)
+│   │   ├── AppointmentCTA.astro # CTA de contacto/cita (stepper WhatsApp)
 │   │   ├── BackToTop.astro      # Botón volver-arriba
 │   │   ├── Reveal.astro         # Scroll-reveal (IntersectionObserver)
 │   │   └── Icon.astro           # Sprite SVG inline
@@ -84,7 +94,8 @@ novialili-dress/
 │   ├── layouts/
 │   │   └── BaseLayout.astro     # <head>, fuentes, global.css, header/footer
 │   ├── lib/
-│   │   └── site.ts              # Datos de marca verificados (teléfono, redes, catálogo)
+│   │   ├── site.ts              # Datos de marca verificados (teléfono, redes, catálogo)
+│   │   └── supabase.ts          # Cliente PostgREST ligero (reseñas + leads) por fetch
 │   ├── pages/
 │   │   ├── index.astro          # Ruta `/` (es)
 │   │   ├── en/index.astro       # Ruta `/en/`
@@ -93,6 +104,9 @@ novialili-dress/
 │       └── global.css           # @import "tailwindcss" + tokens de marca
 ├── astro.config.mjs             # site, i18n {es, en}, plugin de Tailwind v4
 ├── tsconfig.json                # Alias @/* → ./src/*
+├── supabase/
+│   └── schema.sql               # Tablas reviews + leads y políticas RLS
+├── .env.example                 # NGROK_* y PUBLIC_SUPABASE_*
 └── package.json
 ```
 
