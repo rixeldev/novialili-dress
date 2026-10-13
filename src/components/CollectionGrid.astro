@@ -47,7 +47,21 @@ const aspects = [
 ]
 ---
 
-<section id="coleccion" class="bg-ivory-100 py-24 sm:py-32" aria-labelledby="collection-title">
+<section
+  id="coleccion"
+  class="bg-ivory-100 py-24 sm:py-32"
+  aria-labelledby="collection-title"
+  data-collection
+  data-board-labels={JSON.stringify(items.map((i) => i.label))}
+  data-wa-base={SITE.whatsappHref}
+  data-share-msg={t('board.shareMsg')}
+  data-copy-link={t('board.copyLink')}
+  data-copied={t('board.copied')}
+  data-save={t('board.save')}
+  data-saved={t('board.saved')}
+  data-reserve-msg={t('board.reserveMsg')}
+  data-reserve-tail={t('board.reserveMsgTail')}
+>
   <div class="mx-auto max-w-7xl px-6">
     <div class="max-w-2xl" data-reveal>
       <p class="eyebrow flex items-center gap-3 text-rose-700">
@@ -193,19 +207,33 @@ const aspects = [
   </div>
 </section>
 
-<script define:vars={{ labels: items.map((i) => i.label), waBase: SITE.whatsappHref, shareMsg: t('board.shareMsg'), copyLink: t('board.copyLink'), copied: t('board.copied'), save: t('board.save'), saved: t('board.saved'), reserveMsg: t('board.reserveMsg'), reserveMsgTail: t('board.reserveMsgTail') }}>
-  const KEY = 'novialili-novia-board'
-  const hearts = Array.from(document.querySelectorAll('[data-board-i]'))
-  const countEl = document.querySelector('[data-board-count]')
-  const emptyEl = document.querySelector('[data-board-empty]')
-  const copyBtn = document.querySelector('[data-board-copy]')
-  const copyLabel = document.querySelector('[data-board-copy-label]')
-  const shareBtn = document.querySelector('[data-board-share]')
-  const clearBtn = document.querySelector('[data-board-clear]')
+<script>
+  const root = document.querySelector<HTMLElement>('[data-collection]')
+  if (!root) throw new Error('CollectionGrid: falta el nodo raíz [data-collection]')
 
-  let favs = new Set()
+  const labels = JSON.parse(root.dataset.boardLabels ?? '[]') as string[]
+  const waBase = root.dataset.waBase ?? ''
+  const shareMsg = root.dataset.shareMsg ?? ''
+  const copyLink = root.dataset.copyLink ?? ''
+  const copied = root.dataset.copied ?? ''
+  const save = root.dataset.save ?? ''
+  const saved = root.dataset.saved ?? ''
+  const reserveMsg = root.dataset.reserveMsg ?? ''
+  const reserveMsgTail = root.dataset.reserveTail ?? ''
+
+  const KEY = 'novialili-novia-board'
+  const hearts = Array.from(document.querySelectorAll<HTMLElement>('[data-board-i]'))
+  const countEl = document.querySelector<HTMLElement>('[data-board-count]')
+  const emptyEl = document.querySelector<HTMLElement>('[data-board-empty]')
+  const copyBtn = document.querySelector<HTMLButtonElement>('[data-board-copy]')
+  const copyLabel = document.querySelector<HTMLElement>('[data-board-copy-label]')
+  const shareBtn = document.querySelector<HTMLAnchorElement>('[data-board-share]')
+  const clearBtn = document.querySelector<HTMLButtonElement>('[data-board-clear]')
+  const reserveBtns = Array.from(document.querySelectorAll<HTMLElement>('[data-reserve-i]'))
+
+  let favs = new Set<string>()
   try {
-    favs = new Set(JSON.parse(localStorage.getItem(KEY) || '[]'))
+    favs = new Set<string>(JSON.parse(localStorage.getItem(KEY) || '[]'))
   } catch {}
 
   /* Un link entrante (?noviaboard=0,2,4) sincroniza el tablero */
@@ -214,8 +242,8 @@ const aspects = [
     favs = new Set(
       params
         .get('noviaboard')
-        .split(',')
-        .filter((n) => n !== '')
+        ?.split(',')
+        .filter((n) => n !== '') ?? [],
     )
     try {
       localStorage.setItem(KEY, JSON.stringify([...favs]))
@@ -228,11 +256,12 @@ const aspects = [
 
   const render = () => {
     hearts.forEach((h) => {
-      const on = favs.has(h.dataset.boardI)
+      const on = favs.has(h.dataset.boardI ?? '')
       h.classList.toggle('is-on', on)
       h.setAttribute('aria-pressed', String(on))
       h.setAttribute('aria-label', `${labels[Number(h.dataset.boardI)]} — ${on ? saved : save}`)
     })
+    if (!countEl || !emptyEl || !copyBtn || !clearBtn || !shareBtn) return
     countEl.textContent = String(favs.size)
     emptyEl.classList.toggle('hidden', favs.size > 0)
     const canShare = favs.size > 0
@@ -249,7 +278,7 @@ const aspects = [
     h.addEventListener('click', (e) => {
       e.preventDefault()
       e.stopPropagation()
-      const i = h.dataset.boardI
+      const i = h.dataset.boardI ?? ''
       const adding = !favs.has(i)
       favs.has(i) ? favs.delete(i) : favs.add(i)
       try {
@@ -264,15 +293,17 @@ const aspects = [
     })
   })
 
-  copyBtn.addEventListener('click', async () => {
+  copyBtn?.addEventListener('click', async () => {
     try {
       await navigator.clipboard.writeText(boardUrl())
-      copyLabel.textContent = copied
-      setTimeout(() => (copyLabel.textContent = copyLink), 2200)
+      if (copyLabel) copyLabel.textContent = copied
+      setTimeout(() => {
+        if (copyLabel) copyLabel.textContent = copyLink
+      }, 2200)
     } catch {}
   })
 
-  clearBtn.addEventListener('click', () => {
+  clearBtn?.addEventListener('click', () => {
     favs.clear()
     try {
       localStorage.setItem(KEY, JSON.stringify([]))
@@ -281,12 +312,12 @@ const aspects = [
   })
 
   /* "Aparta tu vestido": abre WhatsApp con el mensaje de señal pre-armado */
-  document.querySelectorAll('[data-reserve-i]').forEach((btn) => {
+  reserveBtns.forEach((btn) => {
     btn.addEventListener('click', (e) => {
       e.preventDefault()
       e.stopPropagation()
-      const i = btn.dataset.reserveI
-      const text = `${reserveMsg} ${labels[Number(i)]}. ${reserveMsgTail}`
+      const i = Number(btn.dataset.reserveI)
+      const text = `${reserveMsg} ${labels[i]}. ${reserveMsgTail}`
       window.open(`${waBase}&text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer')
     })
   })

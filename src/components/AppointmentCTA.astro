@@ -120,18 +120,19 @@ const months = t('cta.stepper.months', { returnObjects: true }) as string[]
 </section>
 
 <script>
-  const root = document.querySelector('[data-wa-step]')
-  if (root) {
-    const occasion = root.querySelector('[data-wa-occasion]')
-    const month = root.querySelector('[data-wa-month]')
-    const preview = root.querySelector('[data-wa-preview]')
-    const send = root.querySelector('[data-wa-send]')
-    const base = send.dataset.waBase
-    const msg = root.dataset.msg
-    const msgFor = root.dataset.msgFor
+  const root = document.querySelector<HTMLElement>('[data-wa-step]')
+  const occasion = root?.querySelector<HTMLSelectElement>('[data-wa-occasion]')
+  const month = root?.querySelector<HTMLSelectElement>('[data-wa-month]')
+  const preview = root?.querySelector<HTMLElement>('[data-wa-preview]')
+  const send = root?.querySelector<HTMLAnchorElement>('[data-wa-send]')
+
+  if (root && occasion && month && preview && send) {
+    const base = send.dataset.waBase ?? ''
+    const msg = root.dataset.msg ?? ''
+    const msgFor = root.dataset.msgFor ?? ''
 
     const update = () => {
-      const occ = occasion.options[occasion.selectedIndex].textContent
+      const occ = occasion.options[occasion.selectedIndex]?.textContent ?? ''
       const m = month.value
       const text = `${msg} ${occ}${m ? `, ${msgFor} ${m}.` : '.'}`
       preview.textContent = text

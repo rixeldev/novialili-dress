@@ -119,7 +119,7 @@ const { t } = ui(Astro.currentLocale)
       <div class="lg:col-span-7">
         <iframe
           src="https://www.google.com/maps?q=Novialili%20Dress%2C%20La%20Vega%2C%20Republica%20Dominicana&output=embed&hl=es"
-          class="h-[420px] w-full rounded-[1.5rem] border-0 shadow-xl shadow-ink-900/10"
+          class="h-105 w-full rounded-3xl border-0 shadow-xl shadow-ink-900/10"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
           allowfullscreen
@@ -149,25 +149,34 @@ const { t } = ui(Astro.currentLocale)
 <script>
   import { fetchReviews, submitReview, SUPABASE_CONFIGURED } from '../lib/supabase'
 
-  const root = document.querySelector('[data-reviews]')
-  if (!root) throw new Error('ReviewsSection: no se encontró [data-reviews]')
+  const root = document.querySelector<HTMLElement>('[data-reviews]')
+  const list = root?.querySelector<HTMLUListElement>('[data-review-list]')
+  const emptyMsg = root?.querySelector<HTMLElement>('[data-review-empty]')
+  const loader = root?.querySelector<HTMLElement>('[data-review-loading]')
+  const form = root?.querySelector<HTMLFormElement>('[data-review-form]')
+  const status = root?.querySelector<HTMLElement>('[data-review-status]')
+  const starsWrap = root?.querySelector<HTMLElement>('[data-review-stars]')
 
-  const texts = {
-    loading: root.dataset.loading,
-    beFirst: root.dataset.beFirst,
-    error: root.dataset.error,
-    required: root.dataset.required,
-    saving: root.dataset.saving,
-    thanks: root.dataset.thanks,
-    disabled: root.dataset.disabled,
+  if (!root || !list || !emptyMsg || !loader || !form || !status || !starsWrap) {
+    throw new Error('ReviewsSection: faltan nodos del marcado')
   }
 
-  const list = root.querySelector('[data-review-list]')
-  const emptyMsg = root.querySelector('[data-review-empty]')
-  const loader = root.querySelector('[data-review-loading]')
-  const form = root.querySelector('[data-review-form]')
-  const status = root.querySelector('[data-review-status]')
-  const starsWrap = root.querySelector('[data-review-stars]')
+  const nameInput = form.querySelector<HTMLInputElement>('[name="name"]')
+  const commentInput = form.querySelector<HTMLTextAreaElement>('[name="comment"]')
+  if (!nameInput || !commentInput) {
+    throw new Error('ReviewsSection: faltan campos del formulario')
+  }
+
+  const texts = {
+    loading: root.dataset.loading ?? '',
+    beFirst: root.dataset.beFirst ?? '',
+    error: root.dataset.error ?? '',
+    required: root.dataset.required ?? '',
+    saving: root.dataset.saving ?? '',
+    thanks: root.dataset.thanks ?? '',
+    disabled: root.dataset.disabled ?? '',
+  }
+
   let rating = 0
 
   const escapeHtml = (s) =>
@@ -230,9 +239,9 @@ const { t } = ui(Astro.currentLocale)
 
   starsWrap.querySelectorAll('button').forEach((btn) => {
     btn.addEventListener('click', () => {
-      rating = Number(btn.dataset.value)
+      rating = Number(btn.dataset.value ?? 0)
       starsWrap.querySelectorAll('button').forEach((b) => {
-        const on = Number(b.dataset.value) <= rating
+        const on = Number(b.dataset.value ?? 0) <= rating
         b.setAttribute('aria-pressed', String(on))
         b.classList.toggle('text-rose-500', on)
         b.classList.toggle('text-ink-300', !on)
@@ -246,8 +255,8 @@ const { t } = ui(Astro.currentLocale)
       setStatus(texts.disabled, 'text-ink-500')
       return
     }
-    const name = form.elements.name.value.trim()
-    const comment = form.elements.comment.value.trim()
+    const name = nameInput.value.trim()
+    const comment = commentInput.value.trim()
     if (!name || !comment || rating === 0) {
       setStatus(texts.required, 'text-rose-700')
       return

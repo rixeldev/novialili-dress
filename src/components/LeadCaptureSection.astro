@@ -133,36 +133,47 @@ const years = [year, year + 1, year + 2]
 <script>
   import { submitLead, SUPABASE_CONFIGURED } from '../lib/supabase'
 
-  const form = document.querySelector('[data-lead-form]')
-  if (!form) throw new Error('LeadCapture: no se encontró [data-lead-form]')
+  const form = document.querySelector<HTMLFormElement>('[data-lead-form]')
+  const status = form?.querySelector<HTMLElement>('[data-lead-status]')
 
-  const status = form.querySelector('[data-lead-status]')
+  if (!form || !status) throw new Error('LeadCapture: faltan nodos del formulario')
+
   const texts = {
-    required: form.dataset.required,
-    saving: form.dataset.saving,
-    thanks: form.dataset.thanks,
-    waSent: form.dataset.waSent,
-    error: form.dataset.error,
+    required: form.dataset.required ?? '',
+    saving: form.dataset.saving ?? '',
+    thanks: form.dataset.thanks ?? '',
+    waSent: form.dataset.waSent ?? '',
+    error: form.dataset.error ?? '',
   }
   const msgParts = {
-    greet: form.dataset.msgGreet,
-    event: form.dataset.msgEvent,
-    date: form.dataset.msgDate,
-    phone: form.dataset.msgPhone,
+    greet: form.dataset.msgGreet ?? '',
+    event: form.dataset.msgEvent ?? '',
+    date: form.dataset.msgDate ?? '',
+    phone: form.dataset.msgPhone ?? '',
   }
 
-  const setStatus = (msg, tone) => {
+  const nameInput = form.querySelector<HTMLInputElement>('[name="name"]')
+  const whatsappInput = form.querySelector<HTMLInputElement>('[name="whatsapp"]')
+  const eventSelect = form.querySelector<HTMLSelectElement>('[name="event"]')
+  const monthSelect = form.querySelector<HTMLSelectElement>('[name="month"]')
+  const yearSelect = form.querySelector<HTMLSelectElement>('[name="year"]')
+
+  if (!nameInput || !whatsappInput || !eventSelect || !monthSelect || !yearSelect) {
+    throw new Error('LeadCapture: faltan campos del formulario')
+  }
+
+  const setStatus = (msg: string, tone: string) => {
     status.textContent = msg
     status.className = `mt-4 text-sm leading-relaxed ${tone}`
   }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault()
-    const name = form.elements.name.value.trim()
-    const whatsapp = form.elements.whatsapp.value.trim()
-    const event = form.elements.event.options[form.elements.event.selectedIndex].textContent
-    const month = form.elements.month.value
-    const year = form.elements.year.value
+    const name = nameInput.value.trim()
+    const whatsapp = whatsappInput.value.trim()
+    const event = eventSelect.options[eventSelect.selectedIndex]?.textContent ?? ''
+    const month = monthSelect.value
+    const year = yearSelect.value
 
     if (!name || !whatsapp) {
       setStatus(texts.required, 'text-rose-700')
@@ -186,7 +197,7 @@ const years = [year, year + 1, year + 2]
     const msg = `${msgParts.greet} ${name}. ${msgParts.event} ${event}. ${msgParts.date} ${
       [month, year].filter(Boolean).join(' ') || '—'
     }. ${msgParts.phone} ${whatsapp}.`
-    window.open(`${form.dataset.waBase}&text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer')
+    window.open(`${form.dataset.waBase ?? ''}&text=${encodeURIComponent(msg)}`, '_blank', 'noopener,noreferrer')
     setStatus(texts.waSent, 'text-emerald-700')
   })
 </script>
