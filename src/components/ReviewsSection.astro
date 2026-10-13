@@ -1,0 +1,268 @@
+---
+import Icon from './Icon.astro'
+import { ui } from '../i18n'
+import { SITE } from '../lib/site'
+
+const { t } = ui(Astro.currentLocale)
+---
+
+<section
+  id="resenas"
+  class="bg-ivory-100 py-24 sm:py-32"
+  aria-labelledby="reviews-title"
+  data-reviews
+  data-loading={t('reviews.loading')}
+  data-be-first={t('reviews.beFirst')}
+  data-error={t('reviews.error')}
+  data-required={t('reviews.required')}
+  data-saving={t('reviews.saving')}
+  data-thanks={t('reviews.thanks')}
+  data-disabled={t('reviews.disabled')}
+>
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mx-auto max-w-2xl text-center" data-reveal>
+      <p class="eyebrow flex items-center justify-center gap-3 text-rose-700">
+        <span class="h-px w-10 bg-rose-300" aria-hidden="true"></span>
+        {t('reviews.eyebrow')}
+        <span class="h-px w-10 bg-rose-300" aria-hidden="true"></span>
+      </p>
+      <h2 id="reviews-title" class="mt-5 font-serif text-4xl leading-tight text-ink-900 sm:text-5xl">
+        {t('reviews.title')}
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-ink-700/90">{t('reviews.intro')}</p>
+    </div>
+
+    <div class="mt-16 grid gap-12 lg:grid-cols-12 lg:gap-14">
+      <!-- Reseñas en vivo (Supabase) -->
+      <div class="lg:col-span-7">
+        <p class="mb-6 text-[0.72rem] font-semibold tracking-[0.2em] uppercase text-ink-500" data-review-loading>
+          <Icon name="clock" size={13} class="mr-1.5 inline text-rose-700" />
+          {t('reviews.loading')}
+        </p>
+        <ul data-review-list class="grid gap-6 sm:grid-cols-2"></ul>
+        <p data-review-empty class="hidden rounded-2xl border border-rose-100 bg-ivory-50 p-8 text-center font-serif text-xl italic text-ink-600">
+          {t('reviews.beFirst')}
+        </p>
+      </div>
+
+      <!-- Formulario -->
+      <div class="lg:col-span-5">
+        <form
+          data-review-form
+          class="rounded-3xl border border-rose-100 bg-ivory-50 p-6 shadow-xl shadow-rose-100/60 sm:p-8"
+        >
+          <h3 class="font-serif text-2xl italic text-ink-900">{t('reviews.rateTitle')}</h3>
+
+          <label class="mt-6 block">
+            <span class="text-[0.62rem] font-semibold tracking-[0.22em] uppercase text-ink-500">
+              {t('reviews.name')}
+            </span>
+            <input
+              name="name"
+              type="text"
+              required
+              maxlength="60"
+              autocomplete="name"
+              class="mt-2 w-full rounded-2xl border border-rose-200 bg-ivory-50 px-5 py-3 text-sm text-ink-900 outline-none transition-colors placeholder:text-ink-400 focus:border-rose-500"
+              placeholder={t('reviews.name')}
+            />
+          </label>
+
+          <div class="mt-5">
+            <span class="block text-[0.62rem] font-semibold tracking-[0.22em] uppercase text-ink-500">
+              {t('reviews.rating')}
+            </span>
+            <div class="mt-2 flex gap-1.5" data-review-stars role="group" aria-label={t('reviews.rating')}>
+              {[1, 2, 3, 4, 5].map((n) => (
+                <button
+                  type="button"
+                  data-value={n}
+                  aria-pressed="false"
+                  aria-label={`${n}/5`}
+                  class="text-2xl leading-none text-ink-300 transition-colors duration-200 hover:text-rose-400 focus-visible:text-rose-400"
+                >
+                  ★
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <label class="mt-5 block">
+            <span class="text-[0.62rem] font-semibold tracking-[0.22em] uppercase text-ink-500">
+              {t('reviews.comment')}
+            </span>
+            <textarea
+              name="comment"
+              required
+              maxlength="500"
+              rows="4"
+              class="mt-2 w-full resize-none rounded-2xl border border-rose-200 bg-ivory-50 px-5 py-3 text-sm leading-relaxed text-ink-900 outline-none transition-colors placeholder:text-ink-400 focus:border-rose-500"
+              placeholder={t('reviews.comment')}
+            ></textarea>
+          </label>
+
+          <button
+            type="submit"
+            class="mt-7 inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-rose-800 px-8 py-4 text-xs font-semibold tracking-[0.18em] uppercase text-ivory-50 shadow-lg shadow-rose-800/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-rose-900"
+          >
+            <Icon name="star" size={14} />
+            {t('reviews.submit')}
+          </button>
+
+          <p class="mt-4 hidden text-sm leading-relaxed" data-review-status aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Google Maps -->
+    <div class="mt-20 grid gap-10 lg:grid-cols-12 lg:gap-14" data-reveal>
+      <div class="lg:col-span-7">
+        <iframe
+          src="https://www.google.com/maps?q=Novialili%20Dress%2C%20La%20Vega%2C%20Republica%20Dominicana&output=embed&hl=es"
+          class="h-[420px] w-full rounded-[1.5rem] border-0 shadow-xl shadow-ink-900/10"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+          title={t('reviews.gmapsTitle')}
+        ></iframe>
+      </div>
+      <div class="flex flex-col justify-center lg:col-span-5">
+        <h3 class="font-serif text-3xl leading-tight text-ink-900">{t('reviews.gmapsTitle')}</h3>
+        <p class="mt-4 max-w-sm leading-relaxed text-ink-700/90">
+          <Icon name="pin" size={15} class="mr-1 inline text-rose-700" />
+          {SITE.address}
+        </p>
+        <a
+          href={SITE.googleReviews}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group mt-7 inline-flex w-fit items-center gap-2 border-b border-rose-700 pb-1.5 text-xs font-semibold tracking-[0.2em] uppercase text-rose-700 transition-colors hover:border-rose-800 hover:text-rose-800"
+        >
+          {t('reviews.gmapsCta')}
+          <Icon name="arrowUpRight" size={15} class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { fetchReviews, submitReview, SUPABASE_CONFIGURED } from '../lib/supabase'
+
+  const root = document.querySelector('[data-reviews]')
+  if (!root) throw new Error('ReviewsSection: no se encontró [data-reviews]')
+
+  const texts = {
+    loading: root.dataset.loading,
+    beFirst: root.dataset.beFirst,
+    error: root.dataset.error,
+    required: root.dataset.required,
+    saving: root.dataset.saving,
+    thanks: root.dataset.thanks,
+    disabled: root.dataset.disabled,
+  }
+
+  const list = root.querySelector('[data-review-list]')
+  const emptyMsg = root.querySelector('[data-review-empty]')
+  const loader = root.querySelector('[data-review-loading]')
+  const form = root.querySelector('[data-review-form]')
+  const status = root.querySelector('[data-review-status]')
+  const starsWrap = root.querySelector('[data-review-stars]')
+  let rating = 0
+
+  const escapeHtml = (s) =>
+    s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]))
+
+  const buildCard = (r) => {
+    const li = document.createElement('li')
+    li.className = 'flex flex-col gap-3 rounded-2xl border border-rose-100 bg-ivory-50 p-6 shadow-sm'
+    const stars = '★'.repeat(Math.max(0, Math.min(5, r.rating))) + '☆'.repeat(5 - Math.max(0, Math.min(5, r.rating)))
+    const date = new Date(r.created_at).toLocaleDateString()
+    li.innerHTML = `
+      <div class="flex items-center justify-between gap-3">
+        <span class="tracking-widest text-base text-rose-500" aria-hidden="true">${stars}</span>
+        <time class="text-[0.62rem] font-medium uppercase tracking-[0.18em] text-ink-400">${date}</time>
+      </div>
+      <p class="text-sm leading-relaxed text-ink-700">${escapeHtml(r.comment)}</p>
+      <p class="mt-auto text-xs font-semibold uppercase tracking-[0.18em] text-ink-900">— ${escapeHtml(r.name)}</p>`
+    return li
+  }
+
+  const resetStars = () => {
+    rating = 0
+    starsWrap.querySelectorAll('button').forEach((b) => {
+      b.setAttribute('aria-pressed', 'false')
+      b.classList.remove('text-rose-500')
+      b.classList.add('text-ink-300')
+    })
+  }
+
+  const setStatus = (msg, tone) => {
+    status.textContent = msg
+    status.className = `mt-4 text-sm leading-relaxed ${tone}`
+  }
+
+  async function load() {
+    if (!SUPABASE_CONFIGURED) {
+      loader.classList.add('hidden')
+      emptyMsg.textContent = texts.disabled
+      emptyMsg.classList.remove('hidden')
+      form.classList.add('hidden')
+      return
+    }
+    loader.classList.remove('hidden')
+    try {
+      const rows = await fetchReviews(6)
+      loader.classList.add('hidden')
+      emptyMsg.classList.add('hidden')
+      list.innerHTML = ''
+      if (rows.length === 0) {
+        emptyMsg.classList.remove('hidden')
+      } else {
+        rows.forEach((r) => list.appendChild(buildCard(r)))
+      }
+    } catch {
+      loader.classList.add('hidden')
+      emptyMsg.textContent = texts.error
+      emptyMsg.classList.remove('hidden')
+    }
+  }
+
+  starsWrap.querySelectorAll('button').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      rating = Number(btn.dataset.value)
+      starsWrap.querySelectorAll('button').forEach((b) => {
+        const on = Number(b.dataset.value) <= rating
+        b.setAttribute('aria-pressed', String(on))
+        b.classList.toggle('text-rose-500', on)
+        b.classList.toggle('text-ink-300', !on)
+      })
+    })
+  })
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    if (!SUPABASE_CONFIGURED) {
+      setStatus(texts.disabled, 'text-ink-500')
+      return
+    }
+    const name = form.elements.name.value.trim()
+    const comment = form.elements.comment.value.trim()
+    if (!name || !comment || rating === 0) {
+      setStatus(texts.required, 'text-rose-700')
+      return
+    }
+    setStatus(texts.saving, 'text-ink-500')
+    try {
+      await submitReview({ name, rating, comment })
+      form.reset()
+      resetStars()
+      setStatus(texts.thanks, 'text-emerald-700')
+      await load()
+    } catch {
+      setStatus(texts.error, 'text-rose-700')
+    }
+  })
+
+  load()
+</script>
