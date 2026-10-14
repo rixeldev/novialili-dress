@@ -5,6 +5,7 @@ import { ui } from '../i18n'
 import { SITE } from '../lib/site'
 
 const { t } = ui(Astro.currentLocale)
+const isEs = Astro.currentLocale !== 'en'
 
 const links = [
   { href: '#inicio', label: t('nav.inicio') },
@@ -17,7 +18,10 @@ const links = [
 
 <header id="site-header" class="site-header">
   <div class="mx-auto flex h-17 max-w-7xl items-center justify-between gap-6 px-6">
-    <a href="#" class="site-brand font-serif text-[1.55rem] leading-none tracking-wide">
+    <a
+      href={isEs ? '/' : '/en/'}
+      class="site-brand font-serif text-[1.55rem] leading-none tracking-wide"
+    >
       Novialili <em class="italic">Dress</em>
     </a>
 

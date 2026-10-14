@@ -175,7 +175,7 @@ const aspects = [
         </button>
         <a
           data-board-share
-          href="#"
+          href={SITE.whatsappHref}
           target="_blank"
           rel="noopener noreferrer"
           class="inline-flex items-center gap-2 rounded-full bg-emerald-600 px-5 py-3 text-xs font-semibold tracking-[0.16em] uppercase text-ivory-50 shadow-lg shadow-emerald-600/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-emerald-700"
@@ -269,6 +269,8 @@ const aspects = [
     clearBtn.disabled = !canShare
     shareBtn.classList.toggle('pointer-events-none', !canShare)
     shareBtn.classList.toggle('opacity-40', !canShare)
+    shareBtn.setAttribute('aria-disabled', String(!canShare))
+    shareBtn.tabIndex = canShare ? 0 : -1
     if (canShare) {
       shareBtn.href = `${waBase}&text=${encodeURIComponent(`${shareMsg}\n${favsList()}\n${boardUrl()}`)}`
     }
