@@ -235,6 +235,25 @@
     "cta": "Quiero participar",
     "msg": "Hola Novialili Dress! 💕 Quiero participar en el programa de referidos."
   },
+  "portfolio": {
+    "eyebrow": "Portfolio",
+    "title": "Nuestro trabajo reciente",
+    "intro": "Un vistazo a los looks que salen del atelier: novias, quinceañeras, caballeros y ocasiones especiales.",
+    "instagram": "Ver más en Instagram",
+    "cta": "Agenda tu cita",
+    "items": [
+      "Trabajo del atelier Novialili Dress",
+      "Trabajo del atelier Novialili Dress",
+      "Trabajo del atelier Novialili Dress",
+      "Traje de gala de caballero de Novialili Dress",
+      "Vestido largo de gala de Novialili Dress",
+      "Vestido de gala en exteriores, de Novialili Dress",
+      "Vestido de fiesta en exteriores, de Novialili Dress",
+      "Modelo con vestido de gala de Novialili Dress",
+      "Modelo con vestido de Novialili Dress en exteriores",
+      "Traje de caballero de Novialili Dress"
+    ]
+  },
   "leads": {
     "eyebrow": "Tu perfil de novia",
     "title": "Guárdanos un lugar en tu lista",

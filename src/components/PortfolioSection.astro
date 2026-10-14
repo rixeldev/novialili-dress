@@ -1,0 +1,82 @@
+---
+import Icon from './Icon.astro'
+import { ui } from '../i18n'
+import { SITE } from '../lib/site'
+
+const { t } = ui(Astro.currentLocale)
+
+/**
+ * Portfolio: fotos reales del atelier (importadas de Instagram).
+ * Los alt viven en i18n (`portfolio.items`) para mantener paridad es/en.
+ */
+const shots = [
+  { src: '/images/portfolio/portfolio-01.jpg', w: 640, h: 566 },
+  { src: '/images/portfolio/portfolio-02.jpg', w: 640, h: 581 },
+  { src: '/images/portfolio/portfolio-03.jpg', w: 610, h: 640 },
+  { src: '/images/portfolio/portfolio-04.jpg', w: 640, h: 640 },
+  { src: '/images/portfolio/portfolio-05.jpg', w: 491, h: 640 },
+  { src: '/images/portfolio/portfolio-06.jpg', w: 480, h: 640 },
+  { src: '/images/portfolio/portfolio-07.jpg', w: 480, h: 640 },
+  { src: '/images/portfolio/portfolio-08.jpg', w: 480, h: 640 },
+  { src: '/images/portfolio/portfolio-09.jpg', w: 480, h: 640 },
+  { src: '/images/portfolio/portfolio-10.jpg', w: 480, h: 640 },
+]
+
+const alts = t('portfolio.items', { returnObjects: true }) as string[]
+---
+
+<section id="portfolio" class="bg-ivory-50 py-24 sm:py-32" aria-labelledby="portfolio-title">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="mx-auto max-w-2xl text-center" data-reveal>
+      <p class="eyebrow flex items-center justify-center gap-3 text-rose-700">
+        <span class="h-px w-10 bg-rose-300" aria-hidden="true"></span>
+        {t('portfolio.eyebrow')}
+        <span class="h-px w-10 bg-rose-300" aria-hidden="true"></span>
+      </p>
+      <h2 id="portfolio-title" class="mt-5 font-serif text-4xl leading-tight text-ink-900 sm:text-5xl">
+        {t('portfolio.title')}
+      </h2>
+      <p class="mt-6 text-lg leading-relaxed text-ink-700/90">{t('portfolio.intro')}</p>
+    </div>
+
+    <div class="mt-16 columns-2 gap-4 sm:gap-5 lg:columns-3" data-reveal>
+      {
+        shots.map((shot, i) => (
+          <figure class="mb-4 break-inside-avoid overflow-hidden rounded-2xl bg-ivory-100 shadow-sm sm:mb-5">
+            <img
+              src={shot.src}
+              width={shot.w}
+              height={shot.h}
+              alt={alts[i] ?? ''}
+              loading="lazy"
+              decoding="async"
+              class="h-auto w-full object-cover transition-transform duration-700 ease-out hover:scale-[1.04]"
+            />
+          </figure>
+        ))
+      }
+    </div>
+
+    <div
+      class="mt-14 flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-5"
+      data-reveal
+    >
+      <a
+        href={SITE.instagram}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center gap-2.5 rounded-full border border-rose-700 px-7 py-3.5 text-xs font-semibold tracking-[0.16em] uppercase text-rose-700 transition-all duration-300 hover:-translate-y-0.5 hover:bg-rose-700 hover:text-ivory-50"
+      >
+        <Icon name="instagram" size={15} />
+        {t('portfolio.instagram')}
+      </a>
+      <a
+        href="#contacto"
+        class="inline-flex items-center justify-center gap-2.5 rounded-full bg-rose-800 px-7 py-3.5 text-xs font-semibold tracking-[0.16em] uppercase text-ivory-50 shadow-lg shadow-rose-800/25 transition-all duration-300 hover:-translate-y-0.5 hover:bg-rose-900"
+      >
+        <Icon name="calendar" size={15} />
+        {t('portfolio.cta')}
+      </a>
+    </div>
+  </div>
+</section>

@@ -66,10 +66,9 @@ pnpm preview
 ```text
 novialili-dress/
 ├── public/
-│   ├── images/              # Media: hero, historia, catálogo, tiara, og.jpg, logo
+│   ├── images/              # Media: hero, historia, catálogo, tiara, og.jpg, logo, portfolio/
 │   ├── favicon.png
-│   ├── robots.txt
-│   └── sitemap.xml
+│   └── robots.txt
 ├── src/
 │   ├── components/          # Secciones de la landing + utilidades
 │   │   ├── LandingPage.astro    # Arma la página (header → hero → … → footer)
@@ -80,6 +79,7 @@ novialili-dress/
 │   │   ├── StorySection.astro   # Historia + video <lite-youtube>
 │   │   ├── TestimonialsSection.astro
 │   │   ├── ReferralsSection.astro # "Trae a tu amiga" (referidos)
+│   │   ├── PortfolioSection.astro # Portfolio: galería masonry de trabajos reales
 │   │   ├── ReviewsSection.astro # Reseñas (Supabase) + Google Maps
 │   │   ├── LeadCaptureSection.astro # Perfil de novia (leads → Supabase/WhatsApp)
 │   │   ├── AppointmentCTA.astro # CTA de contacto/cita (stepper WhatsApp)

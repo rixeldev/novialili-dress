@@ -232,6 +232,25 @@
     "cta": "I want to take part",
     "msg": "Hello Novialili Dress! 💕 I want to take part in the referral program."
   },
+  "portfolio": {
+    "eyebrow": "Portfolio",
+    "title": "Our recent work",
+    "intro": "A glimpse of the looks that leave our atelier: brides, quinceañeras, gentlemen and special occasions.",
+    "instagram": "See more on Instagram",
+    "cta": "Book your appointment",
+    "items": [
+      "Work by the Novialili Dress atelier",
+      "Work by the Novialili Dress atelier",
+      "Work by the Novialili Dress atelier",
+      "Novialili Dress men's formal suit",
+      "Novialili Dress long evening gown",
+      "Evening gown photographed outdoors, by Novialili Dress",
+      "Party dress photographed outdoors, by Novialili Dress",
+      "Model wearing a Novialili Dress gown",
+      "Model wearing a Novialili Dress gown outdoors",
+      "Novialili Dress men's suit"
+    ]
+  },
   "leads": {
     "eyebrow": "Your bride profile",
     "title": "Save us a spot on your list",
