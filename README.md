@@ -106,7 +106,7 @@ novialili-dress/
 ├── tsconfig.json                # Alias @/* → ./src/*
 ├── supabase/
 │   └── schema.sql               # Tablas reviews + leads y políticas RLS
-├── .env.example                 # NGROK_* y PUBLIC_SUPABASE_*
+├── .env.example                 # PUBLIC_SUPABASE_*
 └── package.json
 ```
 

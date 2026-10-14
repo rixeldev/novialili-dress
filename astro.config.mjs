@@ -2,7 +2,6 @@
 import { defineConfig } from "astro/config"
 
 import tailwindcss from "@tailwindcss/vite"
-import viteConfig from "./vite.config.js"
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,12 +15,8 @@ export default defineConfig({
   },
   server: {
     host: true,
-    allowedHosts: [
-      "murky-extrovert-cabbie.ngrok-free.dev", 
-      "*.ngrok.io",
-    ],
   },
   vite: {
-    plugins: [...(viteConfig.plugins ?? []), tailwindcss()],
+    plugins: [tailwindcss()],
   },
 })
